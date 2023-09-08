@@ -1,12 +1,12 @@
 import React from 'react';
-
 import '../stylesheets/App.css';
-import TaskManagementButton from '../components/Button/TaskManagementButton';
+
 import TaskCard from '../components/Card/TaskCard';
 import Task from '../types/Task/Task';
-
 function TodoMain() {
+
 const [tasks, setTasks] = React.useState<Task[]>([])
+const MyContext = React.createContext(tasks);
 const [titleField, setTitleField] = React.useState<string>();
 const handleTitleFieldChange = (event: { target: { value: React.SetStateAction<string | undefined>; }; }) => {
   setTitleField(event.target.value)
@@ -15,19 +15,20 @@ const handleTitleFieldChange = (event: { target: { value: React.SetStateAction<s
 const updateTaskCardList = React.useMemo(() => {
   
   return tasks.map(task => 
-    (<TaskCard title={task.title} style={{borderColor:task.selected? "red":"yellow"}} onClick={() => selectTask(task)}/>)
+    (
+    <TaskCard title={task.title} style={{borderColor:task.selected? "red":"yellow"}} onClick={() => selectTask(task)}/>)
   )
 },[tasks]);
 
 const selectTask = (taskToSelect: Task) => {
-setTasks( tasks.map(task => {
-  if(task.title === taskToSelect.title){
-    return { ...task, selected: !task.selected}
-  }
-  return task;
-}))
+  setTasks( tasks.map(task => {
+    if(task.title === taskToSelect.title){
+      return { ...task, selected: !task.selected}
+    }
+    return task;
+  }))
 }
-const onAddBtnClick = () => {
+const handleAddButtonClick = () => {
   if(titleField){
     let newTask: Task = {
       creationDate: Date.now(), title: titleField, state:false, color:"yellow", selected:false
@@ -39,19 +40,21 @@ const onAddBtnClick = () => {
   }
 };
 
-const onDeleteBtnClick = () => {
-    setTasks(oldArray => oldArray.filter(task => task.selected !== true))};
+const handleDeleteButtonClick = () => {
+    setTasks(oldArray => oldArray.filter(task => task.selected !== true))
+  };
+
 return (
-    <>
+    <MyContext.Provider value={tasks}>
       <div className='Tasks-button-div'>
         <div>
           <input type='text'placeholder='Name of your Task' onChange={handleTitleFieldChange}/>
-        <TaskManagementButton onClick={onAddBtnClick} textValue="NEW"/>
+          <button className='Task-button' onClick={handleAddButtonClick}>ADD</button>  
         </div>
-          <TaskManagementButton onClick={onDeleteBtnClick} textValue="DELETE"/>         
-          <TaskManagementButton onClick={() => console.log("cc")} textValue="MOVE"/>         
-          <TaskManagementButton onClick={() => console.log("cc")} textValue="COPY"/>         
-          <TaskManagementButton onClick={() => console.log("cc")} textValue="COPY BY REFERENCE"/>         
+          <button className='Task-button' onClick={handleDeleteButtonClick} >DELETE</button>         
+          <button className='Task-button' onClick={() => console.log("cc")}>COPY TASK</button>         
+          <button className='Task-button' onClick={() => console.log("cc")} >COPY BY REF</button>          
+          <button className='Task-button' onClick={() => console.log("cc")} >MOVE</button>         
       </div>
         <div className="Tasks-cards-div">
           <>
@@ -60,7 +63,7 @@ return (
         </div>
         <div className="Tasks-cards-div">
         </div>
-        </>
+        </MyContext.Provider>
   );
 }
 export {TodoMain}

@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+  background-color: #f0db4f;
+  height: 98vh;
+  margin: 1vh;
+}
+
+.App-logo {
+  height: 5rem;
+}
+.Logo-header{
+  margin: 1rem;
+  display: flex;
+  color: #000;
+}
+.Task-Card {
+  padding: 0.5rem;
+  border-style: solid;
+  border-color: #61dafb;
+  border-radius: 1rem;
+}
+.Tasks-cards-div {
+  padding: 1%;
+  margin: 1rem;
+  border-color: #61dafb;
+  border-radius: 1rem;
+  display: flex;
+  background-color: #e6e3d5;
+  height: 20rem;
+}
+
+
+.Task-button {
+  background-color: #fff000;
+  border-radius: 12px;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: 200ms;
+  font-size: 16px;
+
+}
+          
+.Task-button:not(:disabled):hover,
+.Task-button:not(:disabled):focus {
+  outline: 0;
+  background: #f4e603;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.Task-button:disabled {
+  filter: saturate(0.2) opacity(0.5);
+  -webkit-filter: saturate(0.2) opacity(0.5);
+  cursor: not-allowed;
+}
+.Tasks-button-div {
+  background-color: #d8be0f;
+  align-items: center;
+  justify-content: center;
+  min-height: 5rem;
+}
+
+.App-header {
+  background-color: #ae9f3d;
+  max-height: 10rem;
+  display: flex;
+  align-items: center;
+  font-size: calc(1rem);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}

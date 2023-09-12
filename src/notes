@@ -1,0 +1,12 @@
+"TaskList" => [l1,l2,l3...]
+"TaskRefList" => [{l1,"TaskListId", "selected"},{l1,"TaskListId", "selected"},{l1,"TaskListId", "selected"},{l2,"TaskListId", "selected"},{l3,"TaskListId", "selected"}...]
+
+ajouter une tâche () => {"TaskList"} +1 , {"TaskRefList"} + 1; 
+
+copier les Tache selectionnées (Tache[]) => {"TaskRefList"} + Tache , {"TaskList"} + Tache;
+
+copier les tâche selectionnées par reference (Tache[]) => {"TaskRefList"} + 1; 
+
+supprimer Taches selectionnées () => {"TaskRefList"} - 1 if("TaskList" NOT IN {"TaskRefList"}) -> {"TaskList"} + 1;
+
+Déplacer Tache selectionnées () =>  {"TaskRefList"[{if "selected" -> TaskListId = !TaskListId}]} ;

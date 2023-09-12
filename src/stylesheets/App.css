@@ -1,10 +1,15 @@
 .App {
   text-align: center;
-  background-color: #f0db4f;
-  height: 98vh;
+  background: linear-gradient(to top, #e8d530, #cbc10c, #3b4008);
   margin: 1vh;
+  padding: 1vh;
 }
 
+input[type="checkbox"] {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+ 
 .App-logo {
   height: 5rem;
 }
@@ -15,18 +20,26 @@
 }
 .Task-Card {
   padding: 0.5rem;
-  border-style: solid;
-  border-color: #61dafb;
+  border-style: double;
+  border-color: #b9a80f;
+  background-color: #f3e037d1;
   border-radius: 1rem;
+  height: 15rem;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .Tasks-cards-div {
-  padding: 1%;
+  padding: 1rem;
+  gap: 1rem;
   margin: 1rem;
-  border-color: #61dafb;
+  border-color: #1b2222;
   border-radius: 1rem;
+  border-style: double;
   display: flex;
   background-color: #e6e3d5;
-  height: 20rem;
+  height: 16.5rem;
 }
 
 
@@ -59,6 +72,8 @@
   align-items: center;
   justify-content: center;
   min-height: 5rem;
+  display: flex;
+
 }
 
 .App-header {

@@ -1,24 +1,40 @@
-import React, { ReactNode } from "react";
+import { useContext } from "react";
+import TaskRef from "../../types/Task/TaskRef";
+import TaskContext from "../../TasksContext";
+import React from "react";
 
 interface TaskCardProps {
-    title: string;
-    style: any;
+    taskRef: TaskRef
 }
 
 
 export default function TaskCard(props: TaskCardProps) {
-    const [cardColor, setcardColor] = React.useState("Yellow")
-    const handleChange = (event: {
-        target: {
-            value: React.SetStateAction<string>;
-        };
-    }) => {
-        setcardColor(event.target.value)
+    let { taskRefs, tasks, selectTaskRef, changeTaskColor } = useContext(TaskContext)
+    const [cardColor, setCardColor] = React.useState(props.taskRef.task.color)
+
+    const HandleColorChange = (event: { target: { value: any; }; }) => {
+        changeTaskColor(props.taskRef.task.id, event.target.value)
+
+        setCardColor(props.taskRef.task.color)
+        console.log("changing color ref", tasks);
+        console.log("cardColor", cardColor);
+
+
     }
 
-    return <div className="Task-Card" style={{ ...props.style, backgroundColor: cardColor }} >
-        <h1>{props.title}</h1>
-        <input type="text" onChange={handleChange}>
-        </input>
+    const handleSelectCheckBoxClick = () => {
+        selectTaskRef(props.taskRef)
+    }
+
+    return <div className="Task-Card" style={{
+        backgroundColor: cardColor
+    }} >
+        <h2>{props.taskRef.task.title}</h2>
+
+        <input type="text" onChange={HandleColorChange} placeholder="Change Color!" />
+        <div style={{ display: "flex" }}>
+            <p>select :</p>
+            <input type="checkbox" value={props.taskRef.selected ? "checked" : "unchecked"} onClick={handleSelectCheckBoxClick} />
+        </div>
     </div>
 }

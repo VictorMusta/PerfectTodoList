@@ -4,7 +4,6 @@ import logo from './assets/js.png';
 
 import { TodoList } from './pages/TodoList';
 import { TaskProvider } from './TasksContext';
-import React from 'react';
 import { AddTaskForm } from './components/addTaskForm/addTaskForm';
 function App() {
 
@@ -19,8 +18,8 @@ function App() {
       </header>
       <TaskProvider>
         <AddTaskForm />
-        <TodoList idList={1} />
-        <TodoList idList={2} />
+        <TodoList listId={1} />
+        <TodoList listId={2} />
       </TaskProvider>
     </div>
   );

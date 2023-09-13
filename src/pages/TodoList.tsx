@@ -3,29 +3,34 @@ import '../stylesheets/App.css';
 import TaskCard from '../components/Card/TaskCard';
 import TaskContext from '../TasksContext';
 import { TaskButtons } from '../components/TaskButtons/TaskButtons';
+import { JSX } from 'react/jsx-runtime';
 interface TodoListProps {
-  idList: number
+  listId: number
 }
 function TodoList(props: TodoListProps) {
   let { taskRefs } = useContext(TaskContext)
 
   const updateTaskCardList = React.useMemo(() => {
-
-    return taskRefs.map(taskRef => {
-      if (props.idList == taskRef.listId) {
-        return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
+    let TaskTable: JSX.Element[] = []
+    taskRefs.forEach(taskRef => {
+      if (props.listId === taskRef.listId) {
+        TaskTable.push(<TaskCard key={taskRef.id} taskRef={taskRef} />)
+        // return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
       }
     }
     )
-  }, [taskRefs]);
+    return TaskTable;
+  }, [taskRefs, props.listId]);
 
   return (
     <div >
       <div className='Tasks-button-div'>
-        <TaskButtons idList={props.idList} />
+        <TaskButtons listId={props.listId} />
       </div >
       <div className="Tasks-cards-div">
-        {updateTaskCardList}
+        <>
+          {updateTaskCardList}
+        </>
       </div>
     </div>
   );

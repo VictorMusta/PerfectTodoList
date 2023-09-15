@@ -11,15 +11,12 @@ type moveSelectedTasksType = (listId: number) => void
 type changeTaskColorType = (taskId: string, newColor: string) => void
 type duplicateSelectedTaskRefsType = (listId: number) => void
 type copyByReferenceSelectedTaskRefsType = (listId: number) => void
-type getListSizeType = (listId: number) => number
-type getListSelectedSizeType = (listId: number) => number
+
 
 //création d'une interface pour pouvoir renvoyer des valeurs par défaut si on appelle mes fonctions depuis en dehors de mon contexte
 interface TaskContextInterface {
   tasks: Map<string, Task>
   taskRefs: Map<string, TaskRef>
-  getListSize: getListSizeType
-  getListSelectedSize: getListSelectedSizeType
   createNewTask: createNewTaskType
   deleteSelectedTasks: deleteSelectedTasksType
   selectTaskRef: selectTaskRefType
@@ -53,12 +50,6 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   duplicateSelectedTaskRefs: (_) => {
     throw new Error("function not implemented yet.")
   },
-  getListSize: (_) => {
-    throw new Error("function not implemented yet.")
-  },
-  getListSelectedSize: (_) => {
-    throw new Error("function not implemented yet.")
-  },
   taskRefs: new Map(),
   tasks: new Map()
 }
@@ -70,50 +61,6 @@ export default TaskContext
 const useTaskContextContent = () => {
   const [tasks, setTasks] = React.useState(new Map<string, Task>())
   const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
-  const [selectedTaskRefsNumberForEachList, setselectedTaskRefsNumberForEachList] = useState(0);
-  const [TaskRefsOfListIdSize, setTaskRefsOfListIdSize] = useState(0);
-
-  const getListSize = (idList: number) => {
-    let cpt = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (let [_, value] of taskRefs) {
-      if (value.listId === idList) {
-        cpt++
-      }
-    }
-    return cpt
-  }
-
-  const getListSelectedSize = (idList: number) => {
-    let cpt = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (let [_, value] of taskRefs) {
-      if (value.listId === idList && value.selected === true) {
-        cpt++
-      }
-    }
-    return cpt
-  }
-
-  // React.useEffect(() => {
-  //   console.log("sizes changes!", selectedTaskRefsNumberForEachList);
-  //   console.log("sizes changes!", TaskRefsOfListIdSize);
-  //   let NumberOfTaskRefsInList = 0;
-  //   let NumberOfSelectedTaskRefsInList = 0;
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   for (let [_, value] of taskRefs) {
-  //     if (value.listId === props.listId && value.selected === true) {
-  //       NumberOfSelectedTaskRefsInList++
-  //     }
-  //     if (value.listId === props.listId) {
-  //       NumberOfTaskRefsInList++
-  //     }
-  //   }
-
-  //   setTaskRefsOfListIdSize(NumberOfTaskRefsInList)
-  //   setselectedTaskRefsNumberForEachList(NumberOfSelectedTaskRefsInList)
-
-  // }, [TaskRefsOfListIdSize, props.listId, selectTaskRef, selectedTaskRefsNumberForEachList, taskRefs]);
 
   const createNewTask = (title: string) => {
     let NewTask: Task = {
@@ -138,13 +85,7 @@ const useTaskContextContent = () => {
   }
 
   const moveSelectedTasks = (listId: number) => {
-    // taskRefs.forEach(taskRefs => {
-    //   if (taskRefs.listId === listId)
-    //     return taskRefs
-    // }).size()
-    // if (taskRefs.keys(tasks).size >= 6) {
-    //   alert("mec t'as trop de tâches")
-    // }
+
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && taskRef.listId === listId) {
         if (listId === 1) {
@@ -196,8 +137,6 @@ const useTaskContextContent = () => {
   return {
     tasks,
     taskRefs,
-    getListSize,
-    getListSelectedSize,
     createNewTask,
     deleteSelectedTasks,
     selectTaskRef,

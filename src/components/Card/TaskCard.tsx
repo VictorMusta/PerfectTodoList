@@ -10,7 +10,6 @@ interface TaskCardProps {
 
 export default function TaskCard(props: TaskCardProps) {
     let {
-        tasks,
         selectTaskRef,
         changeTaskColor
     } = useContext(TaskContext)

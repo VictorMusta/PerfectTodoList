@@ -24,12 +24,8 @@ const AddTaskForm = () => {
         setTitleField(e.target.value)
     }
     function handleSubmit() {
-        if (titleField) {
-            createNewTask(titleField)
-        }
-        else {
-            alert("Please mind naming your task before creating it.")
-        }
+        createNewTask(titleField)
+
     }
 
     return (

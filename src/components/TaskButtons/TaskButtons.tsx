@@ -22,8 +22,7 @@ const TaskButtons = (props: TaskButtonsProps) => {
 
         let NumberOfTaskRefsInList = 0;
         let NumberOfSelectedTaskRefsInList = 0;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (let [_, value] of taskRefs) {
+        for (let [, value] of taskRefs) {
             if (value.listId === props.listId && value.selected === true) {
                 NumberOfSelectedTaskRefsInList++
             }

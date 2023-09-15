@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Task from './types/Task/Task'
 import TaskRef from './types/Task/TaskRef'
 import { nanoid } from "nanoid";
@@ -53,7 +53,6 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   taskRefs: new Map(),
   tasks: new Map()
 }
-
 
 const TaskContext = React.createContext<TaskContextInterface>(mydefaultInterfaceObject)
 export default TaskContext
@@ -132,7 +131,6 @@ const useTaskContextContent = () => {
         setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
       }
     })
-
   }
   return {
     tasks,

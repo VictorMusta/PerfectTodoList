@@ -2,7 +2,8 @@ import React from 'react'
 import Task from './types/Task/Task'
 import TaskRef from './types/Task/TaskRef'
 import { nanoid } from "nanoid";
-
+import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
+import { TaskRequest } from './protos/protostubs/Task_pb';
 // Création des types afin de typer les fonctions présentes dans mon interface.
 type createNewTaskType = (title: string) => void
 type deleteSelectedTasksType = (listId: number) => void
@@ -62,6 +63,25 @@ const useTaskContextContent = () => {
   const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
 
   const createNewTask = (title: string) => {
+    let taskService = new TaskServiceClient("locahost:8080")
+    let request = new TaskRequest()
+    request.setTitle("cc")
+    taskService.createTask(request, {}, function (err, response) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+        console.log(response.toObject);
+      }
+    })
+    let NewTask: Task = {
+      id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
+    }
+    let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: 1, selected: false }
+    setTasks(new Map(tasks.set(NewTask.id, NewTask)))
+    setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+  };
+  const oldcreateNewTask = (title: string) => {
     let NewTask: Task = {
       id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
     }

@@ -5,7 +5,7 @@ toto:
 	echo "hello world"
 
 createprotofiles:
-	mkdir -p $./src/protos/protostubs/
+	mkdir -p $(PROTOSTUBSDIR)
 
 protoc-gen: createprotofiles
 	protoc -I=$(PROTODIR) $(PROTODIR)/*.proto --js_out=import_style=commonjs:$(PROTOSTUBSDIR) --grpc-web_out=import_style=typescript,mode=grpcwebtext:$(PROTOSTUBSDIR)

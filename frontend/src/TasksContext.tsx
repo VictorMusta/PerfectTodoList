@@ -66,7 +66,7 @@ const useTaskContextContent = () => {
     let taskService = new TaskServiceClient("locahost:8080")
     let request = new TaskRequest()
     request.setTitle("cc")
-    taskService.createTask(request, {}, function (err, response) {
+    taskService.createTask(request, {}, function (err: { code: any; message: any; }, response: { toObject: any; }) {
       if (err) {
         console.log(err.code);
         console.log(err.message);

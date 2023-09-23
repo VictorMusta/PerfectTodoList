@@ -24,13 +24,17 @@ class TaskFunctions:
                 abort(400)
 
     @staticmethod
-    def get_task(idTask=int):
+    def get_task(RequestBody: dict):
         with Session(engine) as session:
-            taskList = session.scalar(session.query(Task).where(Task.idTask == idTask))
-            if taskList:
-                return taskList.as_dict()
-            else:
-                return abort(404)
+            try:
+                taskList = session.scalar(session.query(Task).where(Task.id == RequestBody.get("id")))
+                if(taskList):
+                    return taskList.as_dict()
+                else:
+                    abort(404)
+            except Exception as err:
+                abort(400)
+
 
     @staticmethod
     def update_task(idTask, **kwargs):

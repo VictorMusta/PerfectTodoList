@@ -1,0 +1,5 @@
+Flask==2.3.3
+grpcio==1.58.0
+protobuf==4.24.3
+SQLAlchemy==2.0.21
+psycopg2-binary==2.9.7

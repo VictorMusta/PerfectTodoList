@@ -14,16 +14,16 @@ def hello_world():
     return "<p>This is my pure Javascript's Flask's api! I Hope you enjoy it.</p>"
 
 
-@app.errorhandler(400)
-def bad_request(e):
-    # defining function
-    return "<p>BAD REQUEST customized error</p>"
+# @app.errorhandler(400)
+# def bad_request(e):
+#     # defining function
+#     return "<p>BAD REQUEST TRY AGAIN NOOB</p>"
 
 
-@app.errorhandler(404)
-def not_found(e):
-    # defining function
-    return "<p>NOT FOUND customized error</p>"
+# @app.errorhandler(404)
+# def not_found(e):
+#     # defining function
+#     return "<p>NOT FOUND</p>"
 
 
 @app.post("/task")
@@ -33,7 +33,7 @@ def new_task():
 
 @app.get("/task")
 def get_task():
-    return TaskFunctions.get_task(request.get_json()["id"])
+    return TaskFunctions.get_task(request.get_json())
 
 
 @app.patch("/task")

@@ -2,8 +2,8 @@ import React from 'react'
 import Task from './types/Task/Task'
 import TaskRef from './types/Task/TaskRef'
 import { nanoid } from "nanoid";
-import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
-import { TaskRequest } from './protos/protostubs/Task_pb';
+// import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
+// import { TaskRequest } from './protos/protostubs/Task_pb';
 // Création des types afin de typer les fonctions présentes dans mon interface.
 type createNewTaskType = (title: string) => void
 type deleteSelectedTasksType = (idList: number) => void
@@ -55,33 +55,33 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   tasks: new Map()
 }
 
-const TaskContext = React.createContext<TaskContextInterface>(mydefaultInterfaceObject)
+const TaskContext = React.createContext < TaskContextInterface > (mydefaultInterfaceObject)
 export default TaskContext
 
 const useTaskContextContent = () => {
-  const [tasks, setTasks] = React.useState(new Map<string, Task>())
-  const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
+  const [tasks, setTasks] = React.useState(new Map < string, Task > ())
+  const [taskRefs, setTaskRefs] = React.useState(new Map < string, TaskRef > ())
 
+  // const createNewTask = (title: string) => {
+  //   let taskService = new TaskServiceClient("locahost:8080")
+  //   let request = new TaskRequest()
+  //   request.setTitle("cc")
+  //   taskService.createTask(request, {}, function (err: { code: any; message: any; }, response: { toObject: any; }) {
+  //     if (err) {
+  //       console.log(err.code);
+  //       console.log(err.message);
+  //     } else {
+  //       console.log(response.toObject);
+  //     }
+  //   })
+  //   let NewTask: Task = {
+  //     id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
+  //   }
+  //   let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: 1, selected: false }
+  //   setTasks(new Map(tasks.set(NewTask.id, NewTask)))
+  //   setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+  // };
   const createNewTask = (title: string) => {
-    let taskService = new TaskServiceClient("locahost:8080")
-    let request = new TaskRequest()
-    request.setTitle("cc")
-    taskService.createTask(request, {}, function (err: { code: any; message: any; }, response: { toObject: any; }) {
-      if (err) {
-        console.log(err.code);
-        console.log(err.message);
-      } else {
-        console.log(response.toObject);
-      }
-    })
-    let NewTask: Task = {
-      idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
-    }
-    let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
-    setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
-    setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
-  };
-  const oldcreateNewTask = (title: string) => {
     let NewTask: Task = {
       idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
     }

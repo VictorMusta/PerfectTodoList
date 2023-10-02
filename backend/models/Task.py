@@ -10,9 +10,7 @@ class Task(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(50))
     color: Mapped[str] = mapped_column(String(20))
-    date: Mapped[datetime]
     resolved: Mapped[bool] = mapped_column(default=False)
-    truc: Mapped[bool] = mapped_column(default=False)
 
     def as_dict(self):
         try:

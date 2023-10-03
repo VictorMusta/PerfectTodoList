@@ -38,11 +38,12 @@ def get_task():
 
 @app.patch("/task")
 def update_task():
+    request_body = request.get_json()
     return TaskFunctions.update_task(
-        request.get_json()["id"],
-        title=request.get_json()["title"],
-        # color=request.get_json()["color"],
-        # resolved=request.get_json()["resolved"],
+        request_body.get("id"),
+        title=request_body.get("title"),
+        color=request_body.get("color"),
+        resolved=request_body.get("resolved"),
     )
 
 

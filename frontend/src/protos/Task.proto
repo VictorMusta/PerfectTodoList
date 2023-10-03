@@ -1,29 +1,50 @@
 syntax = "proto3";
 service TaskService {
-  rpc createTask(TaskRequest) returns (TaskResponse);
-  rpc getTasks(ListRequest) returns (TaskListResponse);
-  rpc modifyTask(TaskRequest) returns (TaskResponse);
+  rpc createTask(CreateTaskRequest) returns(CreateTaskResponse);
+  rpc getTasks(TaskListRequest) returns (TaskListResponse);
+  rpc getTask(TaskRequest) returns (TaskResponse);
+  rpc modifyTask(ModifyTaskRequest) returns (TaskResponse);
 }
-  message TaskRequest {
-    int32 id = 1;
-    string title = 2;
-  }
-  message ListRequest {
-    string taskId = 1;
-  }
   enum Status {
     RESOLVED = 0;
     UNRESOLVED = 1;
   }
+
+
+  message TaskRequest {
+    int32 idTask = 1;
+  } 
+  message ModifyTaskRequest {
+    int32 idTask = 1;
+    optional string title = 2;
+    optional string color = 3;
+    optional Status resolved = 4;
+  } 
+  message CreateTaskRequest {
+    string title = 1;
+  }
+
+  message CreateTaskResponse {
+
+  }
+
+  message TaskListRequest {
+  }
+ 
+
   message Task {
-    int32 id = 1;
+    int32 idTask = 1;
     string title = 2;
     string color = 3;
     Status resolved = 4;
   }
+
+
   message TaskResponse {
     Task Task = 1;
   }
+
+
   message TaskListResponse {
     repeated Task Task = 1;
   }

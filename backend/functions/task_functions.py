@@ -3,6 +3,7 @@ from models.Task import Task
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+
 engine = create_engine(
     "postgresql+psycopg2://taskAdmin:mdppostgres@localhost/postgres", echo=True
 )
@@ -10,44 +11,43 @@ engine = create_engine(
 
 class TaskFunctions:
     @staticmethod
-    def new_task(requestBody: dict):
+    def new_task(title: str):
         with Session(engine) as session:
             try:
-                if requestBody.get("title", ""):
-                    taskObject = Task(
-                        title=requestBody["title"],
-                        color="Yellow",
-                    )
-                    session.add(taskObject)
-                    session.commit()
-                    return taskObject.as_dict()
-                else:
-                    abort(400)
+                taskObject = Task(
+                    title=title,
+                    color="Yellow",
+                )
+                session.add(taskObject)
+                session.commit()
+                return
             except Exception:
                 abort(400)
 
     @staticmethod
-    def get_task(id=int):
+    def get_task(idTask=int):
         try:
             with Session(engine) as session:
-                taskList = session.scalar(session.query(Task).where(Task.id == id))
+                taskList = session.scalar(
+                    session.query(Task).where(Task.idTask == idTask)
+                )
                 return taskList.as_dict() or abort(404)
         except Exception:
             abort(400)
 
     @staticmethod
-    def update_task(id, **kwargs):
+    def update_task(idTask, **kwargs):
         try:
             with Session(engine) as session:
                 task_to_update = session.scalar(
-                    session.query(Task).where(Task.id == id)
+                    session.query(Task).where(Task.idTask == idTask)
                 )
                 for key, value in kwargs.items():
-                    setattr(task_to_update, key, value)
+                    if value:
+                        setattr(task_to_update, key, value)
                     session.commit()
-                return {"id": 3}
-        except Exception as err:
-            print(err)
+                return {"id": id}
+        except Exception:
             abort(404)
 
     @staticmethod
@@ -56,6 +56,7 @@ class TaskFunctions:
             taskList = [
                 taskObject.as_dict() for taskObject in session.query(Task).all()
             ]
+            print(taskList)
             return taskList or "no Task found"
 
     @staticmethod
@@ -64,11 +65,13 @@ class TaskFunctions:
             with Session(engine) as session:
                 requestBody = request.get_json()
                 deletedTasks = (
-                    session.query(Task).where(Task.id == requestBody["id"]).delete()
+                    session.query(Task)
+                    .where(Task.idTask == requestBody["idTask"])
+                    .delete()
                 )
                 if deletedTasks > 0:
                     session.commit()
-                    return "task n°" + str(requestBody["id"]) + " successfully deleted"
+                    return f"task n° {requestBody.get('idTask')} successfully deleted"
                 else:
                     return "No Task found."
         except Exception:
@@ -80,5 +83,4 @@ class TaskFunctions:
             number_of_tasks_found = session.query(Task).delete()
             if number_of_tasks_found > 0:
                 session.commit()
-                return f"{number_of_tasks_found} Task(s) cleared"
-            return "No task to delete."
+            return f"{number_of_tasks_found} Task(s) cleared"

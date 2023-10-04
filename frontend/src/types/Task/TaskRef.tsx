@@ -1,9 +1,9 @@
 import Task from "./Task";
 
 type TaskRef = {
-  id: string,
+  idTaskRef: string,
   task: Task,
-  listId: number,
+  idList: number,
   selected: boolean,
 }
 export default TaskRef;

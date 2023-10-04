@@ -1,37 +1,21 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
 service TaskService {
-  rpc createTask(CreateTaskRequest) returns(CreateTaskResponse);
-  rpc getTasks(TaskListRequest) returns (TaskListResponse);
-  rpc getTask(TaskRequest) returns (TaskResponse);
-  rpc modifyTask(ModifyTaskRequest) returns (TaskResponse);
+  rpc create_task(CreateTaskRequest) returns (google.protobuf.Empty);
+  rpc get_task(GetTaskRequest) returns (GetTaskResponse);
+  rpc get_all_tasks(google.protobuf.Empty) returns (GetAllTasksResponse);
+  rpc update_task(UpdateTaskRequest) returns (google.protobuf.Empty);
+  rpc delete_task(DeleteTaskRequest) returns (google.protobuf.Empty);
+  rpc delete_all_tasks(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
+  //enum for status of task
   enum Status {
     RESOLVED = 0;
     UNRESOLVED = 1;
   }
 
 
-  message TaskRequest {
-    int32 idTask = 1;
-  } 
-  message ModifyTaskRequest {
-    int32 idTask = 1;
-    optional string title = 2;
-    optional string color = 3;
-    optional Status resolved = 4;
-  } 
-  message CreateTaskRequest {
-    string title = 1;
-  }
-
-  message CreateTaskResponse {
-
-  }
-
-  message TaskListRequest {
-  }
- 
-
+  //task type message
   message Task {
     int32 idTask = 1;
     string title = 2;
@@ -40,12 +24,44 @@ service TaskService {
   }
 
 
-  message TaskResponse {
-    Task Task = 1;
+  //create task
+  message CreateTaskRequest {
+    string title = 1;
   }
 
 
-  message TaskListResponse {
-    repeated Task Task = 1;
+  //get task 
+  message GetTaskRequest {
+    int32 idTask = 1;
+  }
+
+  message GetTaskResponse {
+    Task task = 1;
+  }
+
+
+  //update task
+  message UpdateTaskRequest {
+    int32 idTask = 1;
+    optional string title = 2;
+    optional string color = 3;
+    optional Status resolved = 4;
+  } 
+  
+
+  //delete task
+  message DeleteTaskRequest {
+    int32 idTask = 1;
+  }
+
+
+  //delete all tasks
+  message DeleteAllTasksRequest {
+  }
+
+
+  //get all tasks res
+  message GetAllTasksResponse {
+    repeated Task tasks = 1;
   }
   

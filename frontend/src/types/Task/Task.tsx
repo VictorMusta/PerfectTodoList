@@ -1,6 +1,6 @@
 
 type Task = {
-  id: string,
+  idTask: string,
   title: string,
   color: string,
   resolved: boolean,

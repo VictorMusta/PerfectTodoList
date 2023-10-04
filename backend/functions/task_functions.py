@@ -14,41 +14,38 @@ class TaskFunctions:
     def new_task(title: str):
         with Session(engine) as session:
             try:
-                taskObject = Task(
+                task_object = Task(
                     title=title,
                     color="Yellow",
                 )
-                session.add(taskObject)
+                session.add(task_object)
                 session.commit()
-                return
             except Exception:
                 abort(400)
 
     @staticmethod
     def get_task(idTask=int):
-        try:
-            with Session(engine) as session:
-                taskList = session.scalar(
-                    session.query(Task).where(Task.idTask == idTask)
-                )
-                return taskList.as_dict() or abort(404)
-        except Exception:
-            abort(400)
+        with Session(engine) as session:
+            taskList = session.scalar(session.query(Task).where(Task.idTask == idTask))
+            if taskList:
+                return taskList.as_dict()
+            else:
+                return abort(404)
 
     @staticmethod
     def update_task(idTask, **kwargs):
-        try:
-            with Session(engine) as session:
-                task_to_update = session.scalar(
-                    session.query(Task).where(Task.idTask == idTask)
-                )
+        with Session(engine) as session:
+            task_to_update = session.scalar(
+                session.query(Task).where(Task.idTask == idTask)
+            )
+            if task_to_update:
                 for key, value in kwargs.items():
                     if value:
                         setattr(task_to_update, key, value)
                     session.commit()
-                return {"id": id}
-        except Exception:
-            abort(404)
+                return
+            else:
+                abort(404)
 
     @staticmethod
     def get_all_task():

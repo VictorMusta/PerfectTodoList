@@ -6,12 +6,12 @@ import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
 import { TaskRequest } from './protos/protostubs/Task_pb';
 // Création des types afin de typer les fonctions présentes dans mon interface.
 type createNewTaskType = (title: string) => void
-type deleteSelectedTasksType = (listId: number) => void
+type deleteSelectedTasksType = (idList: number) => void
 type selectTaskRefType = (taskRef: TaskRef) => void
-type moveSelectedTasksType = (listId: number) => void
+type moveSelectedTasksType = (idList: number) => void
 type changeTaskColorType = (taskId: string, newColor: string) => void
-type duplicateSelectedTaskRefsType = (listId: number) => void
-type copyByReferenceSelectedTaskRefsType = (listId: number) => void
+type duplicateSelectedTaskRefsType = (idList: number) => void
+type copyByReferenceSelectedTaskRefsType = (idList: number) => void
 
 
 //création d'une interface pour pouvoir renvoyer des valeurs par défaut si on appelle mes fonctions depuis en dehors de mon contexte
@@ -75,24 +75,24 @@ const useTaskContextContent = () => {
       }
     })
     let NewTask: Task = {
-      id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
+      idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
     }
-    let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: 1, selected: false }
-    setTasks(new Map(tasks.set(NewTask.id, NewTask)))
-    setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+    let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
+    setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
+    setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
   };
   const oldcreateNewTask = (title: string) => {
     let NewTask: Task = {
-      id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
+      idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
     }
-    let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: 1, selected: false }
-    setTasks(new Map(tasks.set(NewTask.id, NewTask)))
-    setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+    let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
+    setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
+    setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
   };
 
-  const deleteSelectedTasks = (listId: number) => {
+  const deleteSelectedTasks = (idList: number) => {
     taskRefs.forEach(taskRef => {
-      if (taskRef.selected === true && taskRef.listId === listId) { taskRefs.delete(taskRef.id) }
+      if (taskRef.selected === true && taskRef.idList === idList) { taskRefs.delete(taskRef.idTaskRef) }
     }
     )
     setTaskRefs(new Map(taskRefs))
@@ -100,24 +100,24 @@ const useTaskContextContent = () => {
 
   const selectTaskRef = (taskRefToSelect: TaskRef) => {
     taskRefToSelect.selected = !taskRefToSelect.selected
-    setTaskRefs(new Map(taskRefs.set(taskRefToSelect.id, taskRefToSelect)))
+    setTaskRefs(new Map(taskRefs.set(taskRefToSelect.idTaskRef, taskRefToSelect)))
   }
 
-  const moveSelectedTasks = (listId: number) => {
+  const moveSelectedTasks = (idList: number) => {
 
     taskRefs.forEach(taskRef => {
-      if (taskRef.selected === true && taskRef.listId === listId) {
-        if (listId === 1) {
-          taskRef.listId = 2
+      if (taskRef.selected === true && taskRef.idList === idList) {
+        if (idList === 1) {
+          taskRef.idList = 2
         }
-        else if (listId === 2) {
-          taskRef.listId = 1
+        else if (idList === 2) {
+          taskRef.idList = 1
         }
         else {
           throw new Error("Task is out of bound.")
         }
         taskRef.selected = false;
-        setTaskRefs(new Map(taskRefs.set(taskRef.id, taskRef)))
+        setTaskRefs(new Map(taskRefs.set(taskRef.idTaskRef, taskRef)))
 
       }
     })
@@ -131,24 +131,24 @@ const useTaskContextContent = () => {
     }
   }
 
-  const copyByReferenceSelectedTaskRefs = (listId: number) => {
+  const copyByReferenceSelectedTaskRefs = (idList: number) => {
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true) {
-        let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: taskRef.task, listId: listId, selected: false }
-        setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+        let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: taskRef.task, idList: idList, selected: false }
+        setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
       }
     })
   }
 
-  const duplicateSelectedTaskRefs = (listId: number) => {
+  const duplicateSelectedTaskRefs = (idList: number) => {
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true) {
         let NewTask: Task = {
-          id: `task-${(nanoid())}`, title: taskRef.task.title, resolved: taskRef.task.resolved, color: taskRef.task.color
+          idTask: `task-${(nanoid())}`, title: taskRef.task.title, resolved: taskRef.task.resolved, color: taskRef.task.color
         }
-        setTasks(new Map(tasks.set(NewTask.id, NewTask)))
-        let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: listId, selected: false }
-        setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
+        setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
+        let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: idList, selected: false }
+        setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
       }
     })
   }

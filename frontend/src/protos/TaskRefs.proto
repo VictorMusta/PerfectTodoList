@@ -1,0 +1,43 @@
+
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+service TaskRefsService {
+    rpc createTaskRef(CreateTaskRefRequest) returns(google.protobuf.Empty);
+    rpc getTaskRef(GetTaskRefRequest) returns (GetTaskRefResponse);
+    rpc getAllTaskRefs(google.protobuf.Empty) returns (GetAllTaskRefsResponse);
+    rpc updateTaskRef(UpdateTaskRefRequest) returns (google.protobuf.Empty);
+}
+
+
+//create task ref
+message CreateTaskRefRequest {
+    int32 idTask = 1;
+    }
+
+
+//get task ref
+message GetTaskRefRequest {
+    int32 idTaskRef = 1;
+}
+
+
+message GetTaskRefResponse {
+    int32 idTaskRef = 1;
+    int32 idTask = 2;
+    int32 idList = 3;
+    bool selected = 4;
+}
+
+
+// update task ref
+message UpdateTaskRefRequest {
+    int32 idTaskRef = 1;
+    optional int32 idList = 3;
+    optional bool selected = 4;
+} 
+
+
+//get all tasks res
+message GetAllTaskRefsResponse {
+    repeated GetTaskRefResponse taskRefs = 1;
+}

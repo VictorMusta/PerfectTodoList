@@ -6,7 +6,7 @@ service TaskService {
   rpc get_all_tasks(google.protobuf.Empty) returns (GetAllTasksResponse);
   rpc update_task(UpdateTaskRequest) returns (google.protobuf.Empty);
   rpc delete_task(DeleteTaskRequest) returns (google.protobuf.Empty);
-  rpc delete_all_tasks(google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc delete_all_tasks(google.protobuf.Empty) returns (DeleteAllTasksResponse);
 }
   //enum for status of task
   enum Status {
@@ -65,3 +65,8 @@ service TaskService {
     repeated Task tasks = 1;
   }
   
+
+  //delete all tasks res
+  message DeleteAllTasksResponse{
+    int32 amountOfDeletedTasks = 1;
+  }

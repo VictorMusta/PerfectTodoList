@@ -20,20 +20,20 @@ class TaskFunctions:
                 )
                 session.add(task_object)
                 session.commit()
+                return
             except Exception:
                 abort(400)
 
     @staticmethod
-    def get_task(RequestBody: dict):
+    def get_task(idTask: int):
         with Session(engine) as session:
-            try:
-                taskList = session.scalar(session.query(Task).where(Task.id == RequestBody.get("id")))
-                if(taskList):
-                    return taskList.as_dict()
-                else:
-                    abort(404)
-            except Exception as err:
-                abort(400)
+            
+            task = session.scalar(session.query(Task).where(Task.idTask == idTask))
+            if(task):
+                return task.as_dict()
+            else:
+                abort(404)
+       
 
 
     @staticmethod
@@ -61,22 +61,16 @@ class TaskFunctions:
             return taskList or "no Task found"
 
     @staticmethod
-    def delete_task(requestBody):
-        try:
-            with Session(engine) as session:
-                requestBody = request.get_json()
-                deletedTasks = (
-                    session.query(Task)
-                    .where(Task.idTask == requestBody["idTask"])
-                    .delete()
-                )
-                if deletedTasks > 0:
-                    session.commit()
-                    return f"task n° {requestBody.get('idTask')} successfully deleted"
-                else:
-                    return "No Task found."
-        except Exception:
-            abort(400)
+    def delete_task(idTask:int):
+        with Session(engine) as session:
+            deletedTasks = (
+                session.query(Task)
+                .where(Task.idTask == idTask)
+                .delete()
+            )
+            if deletedTasks > 0:
+                session.commit()
+            return deletedTasks
 
     @staticmethod
     def delete_all_tasks():

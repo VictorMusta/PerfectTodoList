@@ -20,12 +20,14 @@ message GetTaskRefRequest {
     int32 idTaskRef = 1;
 }
 
-
-message GetTaskRefResponse {
+message TaskRef{
     int32 idTaskRef = 1;
     int32 idTask = 2;
     int32 idList = 3;
     bool selected = 4;
+}
+message GetTaskRefResponse {
+   TaskRef taskRef = 1;
 }
 
 

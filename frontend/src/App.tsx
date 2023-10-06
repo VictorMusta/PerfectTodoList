@@ -1,6 +1,6 @@
 
 import './stylesheets/App.css';
-import logo from './assets/js.png';
+import logo from './assets/logo2.png';
 
 import { TodoList } from './pages/TodoList';
 import { TaskProvider } from './TasksContext';

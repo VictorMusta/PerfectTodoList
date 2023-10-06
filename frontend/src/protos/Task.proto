@@ -55,11 +55,6 @@ service TaskService {
   }
 
 
-  //delete all tasks
-  message DeleteAllTasksRequest {
-  }
-
-
   //get all tasks res
   message GetAllTasksResponse {
     repeated Task tasks = 1;

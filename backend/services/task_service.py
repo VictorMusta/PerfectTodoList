@@ -5,11 +5,13 @@ from Task_pb2 import (
     CreateTaskRequest,
     GetTaskRequest,
     DeleteTaskRequest,
+    DeleteAllTasksResponse
 )
-import google.protobuf.empty_pb2
 
 from functions.task_functions import TaskFunctions
 import Task_pb2_grpc as task_stub_grpc
+
+import google.protobuf.empty_pb2
 empty = google.protobuf.empty_pb2.Empty()
 
 class TaskService(task_stub_grpc.TaskServiceServicer):
@@ -36,7 +38,7 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
     def delete_all_tasks(self, request: DeleteTaskRequest, _context) -> None:
         amount_of_deleted_tasks = TaskFunctions.delete_all_tasks()
         result = {"amountOfDeletedTasks":amount_of_deleted_tasks}
-        return result
+        return DeleteAllTasksResponse(**result)
 
 
     def get_all_tasks(self, request, _context) -> GetAllTasksResponse:

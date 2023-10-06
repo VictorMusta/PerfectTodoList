@@ -57,8 +57,7 @@ class TaskFunctions:
             taskList = [
                 taskObject.as_dict() for taskObject in session.query(Task).all()
             ]
-            print(taskList)
-            return taskList or "no Task found"
+            return taskList
 
     @staticmethod
     def delete_task(idTask:int):
@@ -78,4 +77,4 @@ class TaskFunctions:
             number_of_tasks_found = session.query(Task).delete()
             if number_of_tasks_found > 0:
                 session.commit()
-            return f"{number_of_tasks_found} Task(s) cleared"
+            return number_of_tasks_found

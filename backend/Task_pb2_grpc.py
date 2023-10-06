@@ -43,7 +43,7 @@ class TaskServiceStub(object):
         self.delete_all_tasks = channel.unary_unary(
                 '/TaskService/delete_all_tasks',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                response_deserializer=Task__pb2.DeleteAllTasksResponse.FromString,
                 )
 
 
@@ -117,7 +117,7 @@ def add_TaskServiceServicer_to_server(servicer, server):
             'delete_all_tasks': grpc.unary_unary_rpc_method_handler(
                     servicer.delete_all_tasks,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    response_serializer=Task__pb2.DeleteAllTasksResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -227,6 +227,6 @@ class TaskService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/TaskService/delete_all_tasks',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            Task__pb2.DeleteAllTasksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

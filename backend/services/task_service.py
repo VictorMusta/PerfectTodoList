@@ -29,14 +29,14 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
 
 
     def delete_task(self, request: DeleteTaskRequest, _context) -> None:
-        amount_of_deleted_tasks = TaskFunctions.delete_task(request.idTask)
-        result = {"amountOfDeletedTasks":amount_of_deleted_tasks}
-        return result
+        TaskFunctions.delete_task(request.idTask)
+        return empty
     
 
     def delete_all_tasks(self, request: DeleteTaskRequest, _context) -> None:
-        TaskFunctions.delete_all_tasks()
-        return empty
+        amount_of_deleted_tasks = TaskFunctions.delete_all_tasks()
+        result = {"amountOfDeletedTasks":amount_of_deleted_tasks}
+        return result
 
 
     def get_all_tasks(self, request, _context) -> GetAllTasksResponse:

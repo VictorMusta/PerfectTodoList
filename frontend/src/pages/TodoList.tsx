@@ -13,8 +13,8 @@ function TodoList(props: TodoListProps) {
   const updateTaskCardList = React.useMemo(() => {
     let TaskTable: JSX.Element[] = []
     taskRefs.forEach(taskRef => {
-      if (props.listId === taskRef.listId) {
-        TaskTable.push(<TaskCard key={taskRef.id} taskRef={taskRef} />)
+      if (props.listId === taskRef.idList) {
+        TaskTable.push(<TaskCard key={taskRef.idTaskRef} taskRef={taskRef} />)
         // return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
       }
     }
@@ -25,7 +25,7 @@ function TodoList(props: TodoListProps) {
   return (
     <div >
       <div className='Tasks-button-div'>
-        <TaskButtons listId={props.listId} />
+        <TaskButtons idList={props.listId} />
       </div >
       <div className="Tasks-cards-div">
         <>

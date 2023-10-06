@@ -12,7 +12,7 @@ const AddTaskForm = () => {
         let NumberOfTaskRefsInFirstList = 0;
 
         for (let [, value] of taskRefs) {
-            if (value.listId === 1) {
+            if (value.idList === 1) {
                 NumberOfTaskRefsInFirstList++
             }
         }

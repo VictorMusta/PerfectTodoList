@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import TaskRef from "../../types/Task/TaskRef";
 import TaskContext from "../../TasksContext";
-import React from "react";
 
 interface TaskCardProps {
     taskRef: TaskRef
@@ -15,7 +14,7 @@ export default function TaskCard(props: TaskCardProps) {
     } = useContext(TaskContext)
 
     const HandleColorChange = (event: { target: { value: any; }; }) => {
-        changeTaskColor(props.taskRef.task.id, event.target.value)
+        changeTaskColor(props.taskRef.task.idTask, event.target.value)
 
     }
     const handleSelectCheckBoxClick = () => {

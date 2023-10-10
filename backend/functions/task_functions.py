@@ -1,7 +1,8 @@
-from flask import abort, request
+from flask import abort
 from models.Task import Task
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from functions.task_ref_functions import TaskRefFunctions
 
 
 engine = create_engine(
@@ -11,68 +12,59 @@ engine = create_engine(
 
 class TaskFunctions:
     @staticmethod
-    def new_task(title: str):
+    def new_task(title: str) -> None:
         with Session(engine) as session:
             try:
                 task_object = Task(
                     title=title,
                     color="Yellow",
                 )
+                print(task_object)
                 session.add(task_object)
                 session.commit()
-                return
-            except Exception:
-                abort(400)
+            except ValueError as e:
+                abort(400, e)
 
     @staticmethod
-    def get_task(idTask: int):
+    def get_task(id_task: str) -> Task:
+        print(id_task)
         with Session(engine) as session:
-            
-            task = session.scalar(session.query(Task).where(Task.idTask == idTask))
-            if(task):
+            task = session.scalar(session.query(Task).where(Task.id_task == id_task))
+            print(task)
+            if task:
                 return task.as_dict()
-            else:
-                abort(404)
-       
-
+            return abort(404)
 
     @staticmethod
-    def update_task(idTask, **kwargs):
+    def update_task(id_task: int, **kwargs) -> None:
         with Session(engine) as session:
             task_to_update = session.scalar(
-                session.query(Task).where(Task.idTask == idTask)
+                session.query(Task).where(Task.id_task == id_task)
             )
             if task_to_update:
                 for key, value in kwargs.items():
                     if value:
                         setattr(task_to_update, key, value)
                     session.commit()
-                return
-            else:
-                abort(404)
+                return None
+            return abort(404)
 
     @staticmethod
-    def get_all_task():
+    def get_all_task() -> list:
         with Session(engine) as session:
-            taskList = [
-                taskObject.as_dict() for taskObject in session.query(Task).all()
-            ]
-            return taskList
+            return [taskObject.as_dict() for taskObject in session.query(Task).all()]
 
     @staticmethod
-    def delete_task(idTask:int):
+    def delete_task(id_task: int) -> None:
         with Session(engine) as session:
-            deletedTasks = (
-                session.query(Task)
-                .where(Task.idTask == idTask)
-                .delete()
-            )
-            if deletedTasks > 0:
+            deleted_tasks = session.query(Task).where(Task.id_task == id_task).delete()
+            if deleted_tasks > 0:
                 session.commit()
-            return deletedTasks
+                return
+            return abort(404)
 
     @staticmethod
-    def delete_all_tasks():
+    def delete_all_tasks() -> int:
         with Session(engine) as session:
             number_of_tasks_found = session.query(Task).delete()
             if number_of_tasks_found > 0:

@@ -15,50 +15,72 @@ class TaskRefsServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.createTaskRef = channel.unary_unary(
-                '/TaskRefsService/createTaskRef',
+        self.create_task_ref = channel.unary_unary(
+                '/TaskRefsService/create_task_ref',
                 request_serializer=TaskRefs__pb2.CreateTaskRefRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.getTaskRef = channel.unary_unary(
-                '/TaskRefsService/getTaskRef',
+        self.get_task_ref = channel.unary_unary(
+                '/TaskRefsService/get_task_ref',
                 request_serializer=TaskRefs__pb2.GetTaskRefRequest.SerializeToString,
                 response_deserializer=TaskRefs__pb2.GetTaskRefResponse.FromString,
                 )
-        self.getAllTaskRefs = channel.unary_unary(
-                '/TaskRefsService/getAllTaskRefs',
+        self.get_all_task_refs = channel.unary_unary(
+                '/TaskRefsService/get_all_task_refs',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=TaskRefs__pb2.GetAllTaskRefsResponse.FromString,
                 )
-        self.updateTaskRef = channel.unary_unary(
-                '/TaskRefsService/updateTaskRef',
+        self.update_task_ref = channel.unary_unary(
+                '/TaskRefsService/update_task_ref',
                 request_serializer=TaskRefs__pb2.UpdateTaskRefRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.delete_task_ref = channel.unary_unary(
+                '/TaskRefsService/delete_task_ref',
+                request_serializer=TaskRefs__pb2.DeleteTaskRefRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.delete_all_task_refs = channel.unary_unary(
+                '/TaskRefsService/delete_all_task_refs',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=TaskRefs__pb2.DeleteAllTaskRefsResponse.FromString,
                 )
 
 
 class TaskRefsServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def createTaskRef(self, request, context):
+    def create_task_ref(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def getTaskRef(self, request, context):
+    def get_task_ref(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def getAllTaskRefs(self, request, context):
+    def get_all_task_refs(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def updateTaskRef(self, request, context):
+    def update_task_ref(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def delete_task_ref(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def delete_all_task_refs(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -67,25 +89,35 @@ class TaskRefsServiceServicer(object):
 
 def add_TaskRefsServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'createTaskRef': grpc.unary_unary_rpc_method_handler(
-                    servicer.createTaskRef,
+            'create_task_ref': grpc.unary_unary_rpc_method_handler(
+                    servicer.create_task_ref,
                     request_deserializer=TaskRefs__pb2.CreateTaskRefRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'getTaskRef': grpc.unary_unary_rpc_method_handler(
-                    servicer.getTaskRef,
+            'get_task_ref': grpc.unary_unary_rpc_method_handler(
+                    servicer.get_task_ref,
                     request_deserializer=TaskRefs__pb2.GetTaskRefRequest.FromString,
                     response_serializer=TaskRefs__pb2.GetTaskRefResponse.SerializeToString,
             ),
-            'getAllTaskRefs': grpc.unary_unary_rpc_method_handler(
-                    servicer.getAllTaskRefs,
+            'get_all_task_refs': grpc.unary_unary_rpc_method_handler(
+                    servicer.get_all_task_refs,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=TaskRefs__pb2.GetAllTaskRefsResponse.SerializeToString,
             ),
-            'updateTaskRef': grpc.unary_unary_rpc_method_handler(
-                    servicer.updateTaskRef,
+            'update_task_ref': grpc.unary_unary_rpc_method_handler(
+                    servicer.update_task_ref,
                     request_deserializer=TaskRefs__pb2.UpdateTaskRefRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'delete_task_ref': grpc.unary_unary_rpc_method_handler(
+                    servicer.delete_task_ref,
+                    request_deserializer=TaskRefs__pb2.DeleteTaskRefRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'delete_all_task_refs': grpc.unary_unary_rpc_method_handler(
+                    servicer.delete_all_task_refs,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=TaskRefs__pb2.DeleteAllTaskRefsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -98,7 +130,7 @@ class TaskRefsService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def createTaskRef(request,
+    def create_task_ref(request,
             target,
             options=(),
             channel_credentials=None,
@@ -108,14 +140,14 @@ class TaskRefsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/createTaskRef',
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/create_task_ref',
             TaskRefs__pb2.CreateTaskRefRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def getTaskRef(request,
+    def get_task_ref(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,14 +157,14 @@ class TaskRefsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/getTaskRef',
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/get_task_ref',
             TaskRefs__pb2.GetTaskRefRequest.SerializeToString,
             TaskRefs__pb2.GetTaskRefResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def getAllTaskRefs(request,
+    def get_all_task_refs(request,
             target,
             options=(),
             channel_credentials=None,
@@ -142,14 +174,14 @@ class TaskRefsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/getAllTaskRefs',
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/get_all_task_refs',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             TaskRefs__pb2.GetAllTaskRefsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def updateTaskRef(request,
+    def update_task_ref(request,
             target,
             options=(),
             channel_credentials=None,
@@ -159,8 +191,42 @@ class TaskRefsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/updateTaskRef',
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/update_task_ref',
             TaskRefs__pb2.UpdateTaskRefRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def delete_task_ref(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/delete_task_ref',
+            TaskRefs__pb2.DeleteTaskRefRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def delete_all_task_refs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/TaskRefsService/delete_all_task_refs',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            TaskRefs__pb2.DeleteAllTaskRefsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

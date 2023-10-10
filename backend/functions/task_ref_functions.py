@@ -1,5 +1,6 @@
+from xml.dom import NotFoundErr
 from flask import abort
-from models.TaskRef import TaskRefs
+from models.TaskRef import TaskRef
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -11,69 +12,63 @@ engine = create_engine(
 
 class TaskRefFunctions:
     @staticmethod
-    def new_task_ref(idTask: int):
+    def new_task_ref(id_task: str, id_list: int) -> None:
         with Session(engine) as session:
             try:
-                task_ref_object = TaskRefs(
-                    idTask = idTask
-                )
+                task_ref_object = TaskRef(id_task=id_task, id_list=id_list)
                 session.add(task_ref_object)
                 session.commit()
-                return
-            except Exception:
-                abort(400)
+            except NotFoundErr as e:
+                abort(400, e)
 
     @staticmethod
-    def get_task_ref(idTask: int):
+    def get_task_ref(id_task_ref: str) -> dict:
         with Session(engine) as session:
-            
-            task_ref = session.scalar(session.query(Task).where(Task.idTask == idTask))
-            if(task_ref):
-                return task.as_dict()
-            else:
-                abort(404)
-       
-
-
-    @staticmethod
-    def update_task(idTask, **kwargs):
-        with Session(engine) as session:
-            task_to_update = session.scalar(
-                session.query(Task).where(Task.idTask == idTask)
+            task_ref = session.scalar(
+                session.query(TaskRef).where(TaskRef.id_task_ref == id_task_ref)
             )
-            if task_to_update:
+            if task_ref:
+                return task_ref.as_dict()
+            return abort(404)
+
+    @staticmethod
+    def update_task_ref(id_task_ref: str, **kwargs) -> None:
+        with Session(engine) as session:
+            task_ref_to_update = session.scalar(
+                session.query(TaskRef).where(TaskRef.id_task_ref == id_task_ref)
+            )
+            if task_ref_to_update:
                 for key, value in kwargs.items():
                     if value:
-                        setattr(task_to_update, key, value)
+                        setattr(task_ref_to_update, key, value)
                     session.commit()
-                return
-            else:
-                abort(404)
+                return None
+            return abort(404)
 
     @staticmethod
-    def get_all_task():
+    def get_all_task_refs() -> list:
         with Session(engine) as session:
-            taskList = [
-                taskObject.as_dict() for taskObject in session.query(Task).all()
+            return [
+                task_ref_object.as_dict()
+                for task_ref_object in session.query(TaskRef).all()
             ]
-            return taskList
 
     @staticmethod
-    def delete_task(idTask:int):
+    def delete_task_ref(id_task_ref: str) -> int:
         with Session(engine) as session:
-            deletedTasks = (
-                session.query(Task)
-                .where(Task.idTask == idTask)
+            amount_of_deleted_task_refs = (
+                session.query(TaskRef)
+                .where(TaskRef.id_task_ref == id_task_ref)
                 .delete()
             )
-            if deletedTasks > 0:
+            if amount_of_deleted_task_refs > 0:
                 session.commit()
-            return deletedTasks
+            return abort(404)
 
     @staticmethod
-    def delete_all_tasks():
+    def delete_all_task_refs() -> int:
         with Session(engine) as session:
-            number_of_tasks_found = session.query(Task).delete()
-            if number_of_tasks_found > 0:
+            amount_of_deleted_task_refs = session.query(TaskRef).delete()
+            if amount_of_deleted_task_refs > 0:
                 session.commit()
-            return number_of_tasks_found
+            return amount_of_deleted_task_refs

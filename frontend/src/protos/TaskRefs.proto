@@ -2,44 +2,57 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 service TaskRefsService {
-    rpc createTaskRef(CreateTaskRefRequest) returns(google.protobuf.Empty);
-    rpc getTaskRef(GetTaskRefRequest) returns (GetTaskRefResponse);
-    rpc getAllTaskRefs(google.protobuf.Empty) returns (GetAllTaskRefsResponse);
-    rpc updateTaskRef(UpdateTaskRefRequest) returns (google.protobuf.Empty);
+    rpc create_task_ref(CreateTaskRefRequest) returns(google.protobuf.Empty);
+    rpc get_task_ref(GetTaskRefRequest) returns (GetTaskRefResponse);
+    rpc get_all_task_refs(google.protobuf.Empty) returns (GetAllTaskRefsResponse);
+    rpc update_task_ref(UpdateTaskRefRequest) returns (google.protobuf.Empty);
+    rpc delete_task_ref(DeleteTaskRefRequest) returns (google.protobuf.Empty);
+    rpc delete_all_task_refs(google.protobuf.Empty) returns (DeleteAllTaskRefsResponse);
 }
 
+//taskRef type
+message TaskRef{
+    string id_task_ref = 1;
+    string id_task = 2;
+    int32 id_list = 3;
+    bool selected = 4;
+}
 
 //create task ref
 message CreateTaskRefRequest {
-    int32 idTask = 1;
+    string id_task = 1;
+    int32 id_list = 2;
     }
-
 
 //get task ref
 message GetTaskRefRequest {
-    int32 idTaskRef = 1;
+    string id_task_ref = 1;
 }
 
-message TaskRef{
-    int32 idTaskRef = 1;
-    int32 idTask = 2;
-    int32 idList = 3;
-    bool selected = 4;
-}
 message GetTaskRefResponse {
-   TaskRef taskRef = 1;
+   TaskRef task_ref = 1;
 }
 
+//delete task ref
+message DeleteTaskRefRequest {
+    string id_task_ref = 1;
+}
 
 // update task ref
 message UpdateTaskRefRequest {
-    int32 idTaskRef = 1;
-    optional int32 idList = 3;
-    optional bool selected = 4;
-} 
+    string id_task_ref = 1;
+    string id_task = 2;
+    int32 id_list = 3;
+    bool selected = 4;
 
+} 
 
 //get all tasks res
 message GetAllTaskRefsResponse {
-    repeated GetTaskRefResponse taskRefs = 1;
+    repeated TaskRef task_refs = 1;
+}
+
+//delete all tasks res
+message DeleteAllTaskRefsResponse{
+int32 amount_of_deleted_task_refs = 1;
 }

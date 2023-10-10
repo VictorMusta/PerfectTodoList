@@ -14,23 +14,29 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eTaskRefs.proto\x1a\x1bgoogle/protobuf/empty.proto\"&\n\x14\x43reateTaskRefRequest\x12\x0e\n\x06idTask\x18\x01 \x01(\x05\"&\n\x11GetTaskRefRequest\x12\x11\n\tidTaskRef\x18\x01 \x01(\x05\"Y\n\x12GetTaskRefResponse\x12\x11\n\tidTaskRef\x18\x01 \x01(\x05\x12\x0e\n\x06idTask\x18\x02 \x01(\x05\x12\x0e\n\x06idList\x18\x03 \x01(\x05\x12\x10\n\x08selected\x18\x04 \x01(\x08\"m\n\x14UpdateTaskRefRequest\x12\x11\n\tidTaskRef\x18\x01 \x01(\x05\x12\x13\n\x06idList\x18\x03 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08selected\x18\x04 \x01(\x08H\x01\x88\x01\x01\x42\t\n\x07_idListB\x0b\n\t_selected\"?\n\x16GetAllTaskRefsResponse\x12%\n\x08taskRefs\x18\x01 \x03(\x0b\x32\x13.GetTaskRefResponse2\x8b\x02\n\x0fTaskRefsService\x12>\n\rcreateTaskRef\x12\x15.CreateTaskRefRequest\x1a\x16.google.protobuf.Empty\x12\x35\n\ngetTaskRef\x12\x12.GetTaskRefRequest\x1a\x13.GetTaskRefResponse\x12\x41\n\x0egetAllTaskRefs\x12\x16.google.protobuf.Empty\x1a\x17.GetAllTaskRefsResponse\x12>\n\rupdateTaskRef\x12\x15.UpdateTaskRefRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eTaskRefs.proto\x1a\x1bgoogle/protobuf/empty.proto\"R\n\x07TaskRef\x12\x13\n\x0bid_task_ref\x18\x01 \x01(\t\x12\x0f\n\x07id_task\x18\x02 \x01(\t\x12\x0f\n\x07id_list\x18\x03 \x01(\x05\x12\x10\n\x08selected\x18\x04 \x01(\x08\"8\n\x14\x43reateTaskRefRequest\x12\x0f\n\x07id_task\x18\x01 \x01(\t\x12\x0f\n\x07id_list\x18\x02 \x01(\x05\"(\n\x11GetTaskRefRequest\x12\x13\n\x0bid_task_ref\x18\x01 \x01(\t\"0\n\x12GetTaskRefResponse\x12\x1a\n\x08task_ref\x18\x01 \x01(\x0b\x32\x08.TaskRef\"+\n\x14\x44\x65leteTaskRefRequest\x12\x13\n\x0bid_task_ref\x18\x01 \x01(\t\"_\n\x14UpdateTaskRefRequest\x12\x13\n\x0bid_task_ref\x18\x01 \x01(\t\x12\x0f\n\x07id_task\x18\x02 \x01(\t\x12\x0f\n\x07id_list\x18\x03 \x01(\x05\x12\x10\n\x08selected\x18\x04 \x01(\x08\"5\n\x16GetAllTaskRefsResponse\x12\x1b\n\ttask_refs\x18\x01 \x03(\x0b\x32\x08.TaskRef\"@\n\x19\x44\x65leteAllTaskRefsResponse\x12#\n\x1b\x61mount_of_deleted_task_refs\x18\x01 \x01(\x05\x32\xa2\x03\n\x0fTaskRefsService\x12@\n\x0f\x63reate_task_ref\x12\x15.CreateTaskRefRequest\x1a\x16.google.protobuf.Empty\x12\x37\n\x0cget_task_ref\x12\x12.GetTaskRefRequest\x1a\x13.GetTaskRefResponse\x12\x44\n\x11get_all_task_refs\x12\x16.google.protobuf.Empty\x1a\x17.GetAllTaskRefsResponse\x12@\n\x0fupdate_task_ref\x12\x15.UpdateTaskRefRequest\x1a\x16.google.protobuf.Empty\x12@\n\x0f\x64\x65lete_task_ref\x12\x15.DeleteTaskRefRequest\x1a\x16.google.protobuf.Empty\x12J\n\x14\x64\x65lete_all_task_refs\x12\x16.google.protobuf.Empty\x1a\x1a.DeleteAllTaskRefsResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'TaskRefs_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_CREATETASKREFREQUEST']._serialized_start=47
-  _globals['_CREATETASKREFREQUEST']._serialized_end=85
-  _globals['_GETTASKREFREQUEST']._serialized_start=87
-  _globals['_GETTASKREFREQUEST']._serialized_end=125
-  _globals['_GETTASKREFRESPONSE']._serialized_start=127
-  _globals['_GETTASKREFRESPONSE']._serialized_end=216
-  _globals['_UPDATETASKREFREQUEST']._serialized_start=218
-  _globals['_UPDATETASKREFREQUEST']._serialized_end=327
-  _globals['_GETALLTASKREFSRESPONSE']._serialized_start=329
-  _globals['_GETALLTASKREFSRESPONSE']._serialized_end=392
-  _globals['_TASKREFSSERVICE']._serialized_start=395
-  _globals['_TASKREFSSERVICE']._serialized_end=662
+  _globals['_TASKREF']._serialized_start=47
+  _globals['_TASKREF']._serialized_end=129
+  _globals['_CREATETASKREFREQUEST']._serialized_start=131
+  _globals['_CREATETASKREFREQUEST']._serialized_end=187
+  _globals['_GETTASKREFREQUEST']._serialized_start=189
+  _globals['_GETTASKREFREQUEST']._serialized_end=229
+  _globals['_GETTASKREFRESPONSE']._serialized_start=231
+  _globals['_GETTASKREFRESPONSE']._serialized_end=279
+  _globals['_DELETETASKREFREQUEST']._serialized_start=281
+  _globals['_DELETETASKREFREQUEST']._serialized_end=324
+  _globals['_UPDATETASKREFREQUEST']._serialized_start=326
+  _globals['_UPDATETASKREFREQUEST']._serialized_end=421
+  _globals['_GETALLTASKREFSRESPONSE']._serialized_start=423
+  _globals['_GETALLTASKREFSRESPONSE']._serialized_end=476
+  _globals['_DELETEALLTASKREFSRESPONSE']._serialized_start=478
+  _globals['_DELETEALLTASKREFSRESPONSE']._serialized_end=542
+  _globals['_TASKREFSSERVICE']._serialized_start=545
+  _globals['_TASKREFSSERVICE']._serialized_end=963
 # @@protoc_insertion_point(module_scope)

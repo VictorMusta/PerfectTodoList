@@ -8,6 +8,9 @@ service TaskService {
   rpc delete_task(DeleteTaskRequest) returns (google.protobuf.Empty);
   rpc delete_all_tasks(google.protobuf.Empty) returns (DeleteAllTasksResponse);
 }
+message string {
+  string value = 1;
+}
   //enum for status of task
   enum Status {
     RESOLVED = 0;
@@ -17,7 +20,7 @@ service TaskService {
 
   //task type message
   message Task {
-    int32 idTask = 1;
+    string id_task = 1;
     string title = 2;
     string color = 3;
     Status resolved = 4;
@@ -32,7 +35,7 @@ service TaskService {
 
   //get task 
   message GetTaskRequest {
-    int32 idTask = 1;
+    string id_task = 1;
   }
 
   message GetTaskResponse {
@@ -42,16 +45,16 @@ service TaskService {
 
   //update task
   message UpdateTaskRequest {
-    int32 idTask = 1;
-    optional string title = 2;
-    optional string color = 3;
-    optional Status resolved = 4;
+    string id_task = 1;
+    string title = 2;
+    string color = 3;
+    Status resolved = 4;
   } 
   
 
   //delete task
   message DeleteTaskRequest {
-    int32 idTask = 1;
+    string id_task = 1;
   }
 
 
@@ -63,5 +66,5 @@ service TaskService {
 
   //delete all tasks res
   message DeleteAllTasksResponse{
-    int32 amountOfDeletedTasks = 1;
+    int32 amount_of_deleted_tasks = 1;
   }

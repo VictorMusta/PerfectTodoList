@@ -30,7 +30,7 @@ class TaskRefService(TaskRef_stub_grpc.TaskRefsServiceServicer):
 
     def get_all_task_refs(self, request, context) -> GetAllTaskRefsResponse:
         task_list = TaskRefFunctions.get_all_task_refs()
-        print(task_list)
+        print("task_list", task_list)
         result = {"task_refs": task_list}
         print(result)
         return GetAllTaskRefsResponse(**result)

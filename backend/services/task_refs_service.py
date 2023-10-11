@@ -32,7 +32,7 @@ class TaskRefService(TaskRef_stub_grpc.TaskRefsServiceServicer):
         task_list = TaskRefFunctions.get_all_task_refs()
         print("task_list", task_list)
         result = {"task_refs": task_list}
-        print("result", result)
+        print("resuldt", result)
         return GetAllTaskRefsResponse(**result)
 
     def update_task_ref(self, request, context):

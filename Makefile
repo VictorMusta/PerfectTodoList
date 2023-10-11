@@ -5,8 +5,8 @@ BACKPROTOSTUBSDIR = ./backend/protos/protostubs/
 protoc-gen: protoc-gen-back protoc-gen-front
 
 createprotofiles:
-	rm -rf $(FRONTPROTOSTUBSDIR)
-	rm -rf $(BACKPROTOSTUBSDIR)
+	# rm -rf $(FRONTPROTOSTUBSDIR)
+	# rm -rf $(BACKPROTOSTUBSDIR)
 	mkdir -p $(FRONTPROTOSTUBSDIR)
 	mkdir -p $(BACKPROTOSTUBSDIR)
 	mkdir -p $(PROTODIR)

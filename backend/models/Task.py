@@ -8,7 +8,7 @@ import uuid
 class Task(Base):
     __tablename__ = "task"
     id_task: Mapped[str] = mapped_column(
-        UUID(as_uuid=True), unique=True, primary_key=True, default=uuid.uuid4
+        UUID(as_uuid=False), unique=True, primary_key=True, default=uuid.uuid4
     )
     title: Mapped[str] = mapped_column(String(50))
     color: Mapped[str] = mapped_column(String(20))

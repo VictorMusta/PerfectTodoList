@@ -222,8 +222,8 @@ proto.TaskRef.prototype.toObject = function(opt_includeInstance) {
  */
 proto.TaskRef.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    idTask: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    idTask: jspb.Message.getFieldWithDefault(msg, 2, ""),
     idList: jspb.Message.getFieldWithDefault(msg, 3, 0),
     selected: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
@@ -263,11 +263,11 @@ proto.TaskRef.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTaskRef(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTask(value);
       break;
     case 3:
@@ -308,15 +308,15 @@ proto.TaskRef.prototype.serializeBinary = function() {
 proto.TaskRef.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getIdTaskRef();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
   }
   f = message.getIdTask();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       2,
       f
     );
@@ -339,38 +339,38 @@ proto.TaskRef.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 id_task_ref = 1;
- * @return {number}
+ * optional string id_task_ref = 1;
+ * @return {string}
  */
 proto.TaskRef.prototype.getIdTaskRef = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.TaskRef} returns this
  */
 proto.TaskRef.prototype.setIdTaskRef = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional int32 id_task = 2;
- * @return {number}
+ * optional string id_task = 2;
+ * @return {string}
  */
 proto.TaskRef.prototype.getIdTask = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.TaskRef} returns this
  */
 proto.TaskRef.prototype.setIdTask = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -442,7 +442,7 @@ proto.CreateTaskRefRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.CreateTaskRefRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idTask: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    idTask: jspb.Message.getFieldWithDefault(msg, 1, ""),
     idList: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -481,7 +481,7 @@ proto.CreateTaskRefRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTask(value);
       break;
     case 2:
@@ -518,8 +518,8 @@ proto.CreateTaskRefRequest.prototype.serializeBinary = function() {
 proto.CreateTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getIdTask();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -535,20 +535,20 @@ proto.CreateTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 id_task = 1;
- * @return {number}
+ * optional string id_task = 1;
+ * @return {string}
  */
 proto.CreateTaskRefRequest.prototype.getIdTask = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.CreateTaskRefRequest} returns this
  */
 proto.CreateTaskRefRequest.prototype.setIdTask = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -602,7 +602,7 @@ proto.GetTaskRefRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.GetTaskRefRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -640,7 +640,7 @@ proto.GetTaskRefRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTaskRef(value);
       break;
     default:
@@ -673,8 +673,8 @@ proto.GetTaskRefRequest.prototype.serializeBinary = function() {
 proto.GetTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getIdTaskRef();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -683,20 +683,20 @@ proto.GetTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 id_task_ref = 1;
- * @return {number}
+ * optional string id_task_ref = 1;
+ * @return {string}
  */
 proto.GetTaskRefRequest.prototype.getIdTaskRef = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.GetTaskRefRequest} returns this
  */
 proto.GetTaskRefRequest.prototype.setIdTaskRef = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -883,7 +883,7 @@ proto.DeleteTaskRefRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.DeleteTaskRefRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -921,7 +921,7 @@ proto.DeleteTaskRefRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTaskRef(value);
       break;
     default:
@@ -954,8 +954,8 @@ proto.DeleteTaskRefRequest.prototype.serializeBinary = function() {
 proto.DeleteTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getIdTaskRef();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -964,20 +964,20 @@ proto.DeleteTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 id_task_ref = 1;
- * @return {number}
+ * optional string id_task_ref = 1;
+ * @return {string}
  */
 proto.DeleteTaskRefRequest.prototype.getIdTaskRef = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.DeleteTaskRefRequest} returns this
  */
 proto.DeleteTaskRefRequest.prototype.setIdTaskRef = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1013,7 +1013,8 @@ proto.UpdateTaskRefRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.UpdateTaskRefRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    idTask: jspb.Message.getFieldWithDefault(msg, 2, ""),
     idList: jspb.Message.getFieldWithDefault(msg, 3, 0),
     selected: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
@@ -1053,8 +1054,12 @@ proto.UpdateTaskRefRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setIdTaskRef(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setIdTask(value);
       break;
     case 3:
       var value = /** @type {number} */ (reader.readInt32());
@@ -1094,9 +1099,16 @@ proto.UpdateTaskRefRequest.prototype.serializeBinary = function() {
 proto.UpdateTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getIdTaskRef();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getIdTask();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
       f
     );
   }
@@ -1118,20 +1130,38 @@ proto.UpdateTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int32 id_task_ref = 1;
- * @return {number}
+ * optional string id_task_ref = 1;
+ * @return {string}
  */
 proto.UpdateTaskRefRequest.prototype.getIdTaskRef = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.UpdateTaskRefRequest} returns this
  */
 proto.UpdateTaskRefRequest.prototype.setIdTaskRef = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string id_task = 2;
+ * @return {string}
+ */
+proto.UpdateTaskRefRequest.prototype.getIdTask = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.UpdateTaskRefRequest} returns this
+ */
+proto.UpdateTaskRefRequest.prototype.setIdTask = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

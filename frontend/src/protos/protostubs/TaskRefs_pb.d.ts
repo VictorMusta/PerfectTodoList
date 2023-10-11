@@ -4,11 +4,11 @@ import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty
 
 
 export class TaskRef extends jspb.Message {
-  getIdTaskRef(): number;
-  setIdTaskRef(value: number): TaskRef;
+  getIdTaskRef(): string;
+  setIdTaskRef(value: string): TaskRef;
 
-  getIdTask(): number;
-  setIdTask(value: number): TaskRef;
+  getIdTask(): string;
+  setIdTask(value: string): TaskRef;
 
   getIdList(): number;
   setIdList(value: number): TaskRef;
@@ -26,16 +26,16 @@ export class TaskRef extends jspb.Message {
 
 export namespace TaskRef {
   export type AsObject = {
-    idTaskRef: number,
-    idTask: number,
+    idTaskRef: string,
+    idTask: string,
     idList: number,
     selected: boolean,
   }
 }
 
 export class CreateTaskRefRequest extends jspb.Message {
-  getIdTask(): number;
-  setIdTask(value: number): CreateTaskRefRequest;
+  getIdTask(): string;
+  setIdTask(value: string): CreateTaskRefRequest;
 
   getIdList(): number;
   setIdList(value: number): CreateTaskRefRequest;
@@ -50,14 +50,14 @@ export class CreateTaskRefRequest extends jspb.Message {
 
 export namespace CreateTaskRefRequest {
   export type AsObject = {
-    idTask: number,
+    idTask: string,
     idList: number,
   }
 }
 
 export class GetTaskRefRequest extends jspb.Message {
-  getIdTaskRef(): number;
-  setIdTaskRef(value: number): GetTaskRefRequest;
+  getIdTaskRef(): string;
+  setIdTaskRef(value: string): GetTaskRefRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetTaskRefRequest.AsObject;
@@ -69,7 +69,7 @@ export class GetTaskRefRequest extends jspb.Message {
 
 export namespace GetTaskRefRequest {
   export type AsObject = {
-    idTaskRef: number,
+    idTaskRef: string,
   }
 }
 
@@ -94,8 +94,8 @@ export namespace GetTaskRefResponse {
 }
 
 export class DeleteTaskRefRequest extends jspb.Message {
-  getIdTaskRef(): number;
-  setIdTaskRef(value: number): DeleteTaskRefRequest;
+  getIdTaskRef(): string;
+  setIdTaskRef(value: string): DeleteTaskRefRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteTaskRefRequest.AsObject;
@@ -107,13 +107,16 @@ export class DeleteTaskRefRequest extends jspb.Message {
 
 export namespace DeleteTaskRefRequest {
   export type AsObject = {
-    idTaskRef: number,
+    idTaskRef: string,
   }
 }
 
 export class UpdateTaskRefRequest extends jspb.Message {
-  getIdTaskRef(): number;
-  setIdTaskRef(value: number): UpdateTaskRefRequest;
+  getIdTaskRef(): string;
+  setIdTaskRef(value: string): UpdateTaskRefRequest;
+
+  getIdTask(): string;
+  setIdTask(value: string): UpdateTaskRefRequest;
 
   getIdList(): number;
   setIdList(value: number): UpdateTaskRefRequest;
@@ -131,7 +134,8 @@ export class UpdateTaskRefRequest extends jspb.Message {
 
 export namespace UpdateTaskRefRequest {
   export type AsObject = {
-    idTaskRef: number,
+    idTaskRef: string,
+    idTask: string,
     idList: number,
     selected: boolean,
   }

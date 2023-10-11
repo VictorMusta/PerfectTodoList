@@ -2,6 +2,7 @@ import React from 'react'
 import Task from './types/Task/Task'
 import TaskRef from './types/Task/TaskRef'
 import { nanoid } from "nanoid";
+import google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb.js'
 // import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
 // import { TaskRequest } from './protos/protostubs/Task_pb';
 // Création des types afin de typer les fonctions présentes dans mon interface.
@@ -55,12 +56,15 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   tasks: new Map()
 }
 
-const TaskContext = React.createContext < TaskContextInterface > (mydefaultInterfaceObject)
+const TaskContext = React.createContext<TaskContextInterface>(mydefaultInterfaceObject)
 export default TaskContext
 
 const useTaskContextContent = () => {
-  const [tasks, setTasks] = React.useState(new Map < string, Task > ())
-  const [taskRefs, setTaskRefs] = React.useState(new Map < string, TaskRef > ())
+  const [tasks, setTasks] = React.useState(new Map<string, Task>())
+  const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
+  const { CreateTaskRequest } = require("../src/protos/protostubs/Task_pb")
+  const { TaskServiceClient } = require("../src/protos/protostubs/TaskServiceClientPb")
+  let TaskService = new TaskServiceClient("http://localhost:8080")
 
   // const createNewTask = (title: string) => {
   //   let taskService = new TaskServiceClient("locahost:8080")
@@ -82,12 +86,25 @@ const useTaskContextContent = () => {
   //   setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
   // };
   const createNewTask = (title: string) => {
-    let NewTask: Task = {
-      idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
-    }
-    let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
-    setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
-    setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
+    // let request = new CreateTaskRequest()
+    console.log(title);
+
+    // request.setTitle(title)
+
+    // let meta = new grpc.Metadata()
+    // request.header('Access-Control-Allow-Origin', 'http://localhost:10000')
+    // let res = TaskService.create_task(request)
+    let empty = new google_protobuf_empty_pb.Empty
+    let res = TaskService.get_all_tasks(empty)
+
+    console.log(res);
+
+    // let NewTask: Task = {
+    //   idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
+    // }
+    // let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
+    // setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
+    // setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
   };
 
   const deleteSelectedTasks = (idList: number) => {

@@ -4,8 +4,8 @@ import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty
 
 
 export class Task extends jspb.Message {
-  getIdTask(): number;
-  setIdTask(value: number): Task;
+  getIdTask(): string;
+  setIdTask(value: string): Task;
 
   getTitle(): string;
   setTitle(value: string): Task;
@@ -26,7 +26,7 @@ export class Task extends jspb.Message {
 
 export namespace Task {
   export type AsObject = {
-    idTask: number,
+    idTask: string,
     title: string,
     color: string,
     resolved: Status,
@@ -52,8 +52,8 @@ export namespace CreateTaskRequest {
 }
 
 export class GetTaskRequest extends jspb.Message {
-  getIdTask(): number;
-  setIdTask(value: number): GetTaskRequest;
+  getIdTask(): string;
+  setIdTask(value: string): GetTaskRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetTaskRequest.AsObject;
@@ -65,7 +65,7 @@ export class GetTaskRequest extends jspb.Message {
 
 export namespace GetTaskRequest {
   export type AsObject = {
-    idTask: number,
+    idTask: string,
   }
 }
 
@@ -90,8 +90,8 @@ export namespace GetTaskResponse {
 }
 
 export class UpdateTaskRequest extends jspb.Message {
-  getIdTask(): number;
-  setIdTask(value: number): UpdateTaskRequest;
+  getIdTask(): string;
+  setIdTask(value: string): UpdateTaskRequest;
 
   getTitle(): string;
   setTitle(value: string): UpdateTaskRequest;
@@ -112,7 +112,7 @@ export class UpdateTaskRequest extends jspb.Message {
 
 export namespace UpdateTaskRequest {
   export type AsObject = {
-    idTask: number,
+    idTask: string,
     title: string,
     color: string,
     resolved: Status,
@@ -120,8 +120,8 @@ export namespace UpdateTaskRequest {
 }
 
 export class DeleteTaskRequest extends jspb.Message {
-  getIdTask(): number;
-  setIdTask(value: number): DeleteTaskRequest;
+  getIdTask(): string;
+  setIdTask(value: string): DeleteTaskRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteTaskRequest.AsObject;
@@ -133,7 +133,7 @@ export class DeleteTaskRequest extends jspb.Message {
 
 export namespace DeleteTaskRequest {
   export type AsObject = {
-    idTask: number,
+    idTask: string,
   }
 }
 

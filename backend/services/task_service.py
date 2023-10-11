@@ -25,7 +25,6 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
         return empty
 
     def get_task(self, request: GetTaskRequest, _context) -> GetAllTasksResponse:
-        print(request.id_task)
         task = TaskFunctions.get_task(request.id_task)
         result = {"task": task}
         return GetTaskResponse(**result)

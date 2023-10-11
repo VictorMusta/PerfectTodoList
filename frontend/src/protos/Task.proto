@@ -8,9 +8,7 @@ service TaskService {
   rpc delete_task(DeleteTaskRequest) returns (google.protobuf.Empty);
   rpc delete_all_tasks(google.protobuf.Empty) returns (DeleteAllTasksResponse);
 }
-message string {
-  string value = 1;
-}
+
   //enum for status of task
   enum Status {
     RESOLVED = 0;

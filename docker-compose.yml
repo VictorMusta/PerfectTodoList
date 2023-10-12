@@ -11,14 +11,22 @@ services:
       POSTGRES_PASSWORD: mdppostgres
     ports:
       - 5432:5432
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
   envoy:
     image: envoyproxy/envoy:v1.21.0
     ports:
-      - "8080:8080"
+      - "10000:10000"
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
+  frontend:
+    image: react-todolist-frontend
+    ports:
+      - "3000:3000"
+  backend:
+    image: react-todolist-backend
+    ports:
+      - "50051:50051"

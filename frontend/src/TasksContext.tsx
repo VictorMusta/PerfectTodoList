@@ -56,15 +56,15 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   tasks: new Map()
 }
 
-const TaskContext = React.createContext<TaskContextInterface>(mydefaultInterfaceObject)
+const TaskContext = React.createContext < TaskContextInterface > (mydefaultInterfaceObject)
 export default TaskContext
 
 const useTaskContextContent = () => {
-  const [tasks, setTasks] = React.useState(new Map<string, Task>())
-  const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
+  const [tasks, setTasks] = React.useState(new Map < string, Task > ())
+  const [taskRefs, setTaskRefs] = React.useState(new Map < string, TaskRef > ())
   const { CreateTaskRequest } = require("../src/protos/protostubs/Task_pb")
   const { TaskServiceClient } = require("../src/protos/protostubs/TaskServiceClientPb")
-  let TaskService = new TaskServiceClient("http://localhost:8080")
+  let TaskService = new TaskServiceClient("http://localhost:10000")
 
   // const createNewTask = (title: string) => {
   //   let taskService = new TaskServiceClient("locahost:8080")
@@ -94,7 +94,7 @@ const useTaskContextContent = () => {
     // let meta = new grpc.Metadata()
     // request.header('Access-Control-Allow-Origin', 'http://localhost:10000')
     // let res = TaskService.create_task(request)
-    let empty = new google_protobuf_empty_pb.Empty
+    let empty = new google_protobuf_empty_pb.Empty()
     let res = TaskService.get_all_tasks(empty)
 
     console.log(res);

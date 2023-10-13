@@ -88,6 +88,10 @@ const useTaskContextContent = () => {
   const createNewTask = (title: string) => {
     // let request = new CreateTaskRequest()
     console.log(title);
+    console.log(title);
+    console.log(title);
+    console.log(title);
+    console.log(title);
 
     // request.setTitle(title)
 

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 
 engine = create_engine(
-    "postgresql+psycopg2://taskAdmin:mdppostgres@localhost/postgres", echo=True
+    "postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres", echo=True
 )
 
 

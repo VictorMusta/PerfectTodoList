@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from functions.task_functions import TaskFunctions
 
 engine = create_engine(
-    "postgresql+psycopg2://taskAdmin:mdppostgres@localhost/postgres", echo=True
+    "postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres", echo=True
 )
 
 app = Flask(__name__)

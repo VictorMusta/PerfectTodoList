@@ -2,7 +2,7 @@
 
 FROM node:18-alpine
 WORKDIR /frontend
-COPY . .
+COPY /frontend .
 RUN npm ci && npm i --save-dev @types/google-protobuf
 CMD ["npm", "start"]
 EXPOSE 3000

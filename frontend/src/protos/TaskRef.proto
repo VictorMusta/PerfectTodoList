@@ -1,13 +1,13 @@
 
 syntax = "proto3";
 import "google/protobuf/empty.proto";
-service TaskRefsService {
+service TaskRefService {
     rpc create_task_ref(CreateTaskRefRequest) returns(google.protobuf.Empty);
     rpc get_task_ref(GetTaskRefRequest) returns (GetTaskRefResponse);
-    rpc get_all_task_refs(google.protobuf.Empty) returns (GetAllTaskRefsResponse);
+    rpc get_all_task_refs(google.protobuf.Empty) returns (GetAllTaskRefResponse);
     rpc update_task_ref(UpdateTaskRefRequest) returns (google.protobuf.Empty);
     rpc delete_task_ref(DeleteTaskRefRequest) returns (google.protobuf.Empty);
-    rpc delete_all_task_refs(google.protobuf.Empty) returns (DeleteAllTaskRefsResponse);
+    rpc delete_all_task_refs(google.protobuf.Empty) returns (DeleteAllTaskRefResponse);
 }
 
 //taskRef type
@@ -48,11 +48,11 @@ message UpdateTaskRefRequest {
 } 
 
 //get all tasks res
-message GetAllTaskRefsResponse {
+message GetAllTaskRefResponse {
     repeated TaskRef task_refs = 1;
 }
 
 //delete all tasks res
-message DeleteAllTaskRefsResponse{
+message DeleteAllTaskRefResponse{
 int32 amount_of_deleted_task_refs = 1;
 }

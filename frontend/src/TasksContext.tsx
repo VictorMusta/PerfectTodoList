@@ -13,6 +13,8 @@ type moveSelectedTasksType = (idList: number) => void
 type changeTaskColorType = (taskId: string, newColor: string) => void
 type duplicateSelectedTaskRefsType = (idList: number) => void
 type copyByReferenceSelectedTaskRefsType = (idList: number) => void
+type getAllTaskRefsType = () => void
+type getAllTasksType = () => void
 
 
 //création d'une interface pour pouvoir renvoyer des valeurs par défaut si on appelle mes fonctions depuis en dehors de mon contexte
@@ -26,6 +28,8 @@ interface TaskContextInterface {
   changeTaskColor: changeTaskColorType
   duplicateSelectedTaskRefs: duplicateSelectedTaskRefsType
   copyByReferenceSelectedTaskRefs: copyByReferenceSelectedTaskRefsType
+  getAllTaskRefs: getAllTaskRefsType
+  getAllTasks: getAllTasksType
 
 }
 
@@ -35,6 +39,12 @@ const mydefaultInterfaceObject: TaskContextInterface = {
     throw new Error("function not implemented yet.")
   },
   createNewTask: (_) => {
+    throw new Error("function not implemented yet.")
+  },
+  getAllTaskRefs: () => {
+    throw new Error("function not implemented yet.")
+  },
+  getAllTasks: () => {
     throw new Error("function not implemented yet.")
   },
   deleteSelectedTasks: (_) => {
@@ -56,60 +66,80 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   tasks: new Map()
 }
 
-const TaskContext = React.createContext < TaskContextInterface > (mydefaultInterfaceObject)
+const TaskContext = React.createContext<TaskContextInterface>(mydefaultInterfaceObject)
 export default TaskContext
 
 const useTaskContextContent = () => {
-  const [tasks, setTasks] = React.useState(new Map < string, Task > ())
-  const [taskRefs, setTaskRefs] = React.useState(new Map < string, TaskRef > ())
-  const { CreateTaskRequest } = require("../src/protos/protostubs/Task_pb")
+  const [tasks, setTasks] = React.useState(new Map<string, Task>())
+  const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
+  const { CreateTaskRequest, GetTaskRequest } = require("../src/protos/protostubs/Task_pb")
   const { TaskServiceClient } = require("../src/protos/protostubs/TaskServiceClientPb")
-  let TaskService = new TaskServiceClient("http://localhost:10000")
+  const { TaskRefServiceClient } = require("../src/protos/protostubs/TaskRefServiceClientPb")
+  let taskService = new TaskServiceClient("http://localhost:10000")
+  let taskRefService = new TaskRefServiceClient("http://localhost:10000")
 
-  // const createNewTask = (title: string) => {
-  //   let taskService = new TaskServiceClient("locahost:8080")
-  //   let request = new TaskRequest()
-  //   request.setTitle("cc")
-  //   taskService.createTask(request, {}, function (err: { code: any; message: any; }, response: { toObject: any; }) {
-  //     if (err) {
-  //       console.log(err.code);
-  //       console.log(err.message);
-  //     } else {
-  //       console.log(response.toObject);
-  //     }
-  //   })
-  //   let NewTask: Task = {
-  //     id: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
-  //   }
-  //   let NewTaskRef: TaskRef = { id: `taskRef-${(nanoid())}`, task: NewTask, listId: 1, selected: false }
-  //   setTasks(new Map(tasks.set(NewTask.id, NewTask)))
-  //   setTaskRefs(new Map(taskRefs.set(NewTaskRef.id, NewTaskRef)))
-  // };
   const createNewTask = (title: string) => {
-    // let request = new CreateTaskRequest()
-    console.log(title);
-    console.log(title);
-    console.log(title);
-    console.log(title);
-    console.log(title);
-
-    // request.setTitle(title)
-
-    // let meta = new grpc.Metadata()
-    // request.header('Access-Control-Allow-Origin', 'http://localhost:10000')
-    // let res = TaskService.create_task(request)
-    let empty = new google_protobuf_empty_pb.Empty()
-    let res = TaskService.get_all_tasks(empty)
-
-    console.log(res);
-
-    // let NewTask: Task = {
-    //   idTask: `task-${(nanoid())}`, title: title, resolved: false, color: "white"
-    // }
-    // let NewTaskRef: TaskRef = { idTaskRef: `taskRef-${(nanoid())}`, task: NewTask, idList: 1, selected: false }
-    // setTasks(new Map(tasks.set(NewTask.idTask, NewTask)))
-    // setTaskRefs(new Map(taskRefs.set(NewTaskRef.idTaskRef, NewTaskRef)))
+    let request = new CreateTaskRequest()
+    request.setTitle(title)
+    taskService.create_task(request, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      }
+    });
   };
+
+  const getAllTasks = () => {
+    let empty = new google_protobuf_empty_pb.Empty()
+    taskService.get_all_tasks(empty, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+        console.log(response.getTasksList());
+
+        response.getTasksList().forEach((task: any) => {
+          let tempTask: Task = { idTask: task.array[0], title: task.array[1], color: task.array[2], resolved: task.array[3] ? task.array[3] : false }
+          setTasks(new Map(tasks.set(tempTask.idTask, tempTask)))
+        })
+        // console.log("coucou")
+        // console.log(tasks)
+        // tasks.forEach(task => {
+        //   console.log(task);
+
+        // })
+      }
+
+
+    });
+
+  }
+  const getAllTaskRefs = () => {
+    let empty = new google_protobuf_empty_pb.Empty()
+    taskRefService.get_all_task_refs(empty, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+        console.log("task refs list", response.getTaskRefsList());
+        response.getTaskRefsList().forEach((taskRef: any) => {
+          let tempTask: TaskRef = { idTaskRef: taskRef.array[0], task: taskRef.array[1], idList: taskRef.array[2], selected: taskRef.array[3] ? taskRef.array[3] : false }
+          setTaskRefs(new Map(taskRefs.set(tempTask.idTaskRef, tempTask)))
+        })
+        console.log("coucou")
+        console.log(taskRefs)
+        taskRefs.forEach(task => {
+          console.log(task);
+
+        })
+      }
+    });
+
+  }
+  const getOneTask = (idTask: string) => {
+    // let request =
+    taskService.get_task(idTask)
+  }
 
   const deleteSelectedTasks = (idList: number) => {
     taskRefs.forEach(taskRef => {
@@ -177,12 +207,14 @@ const useTaskContextContent = () => {
     tasks,
     taskRefs,
     createNewTask,
+    getAllTaskRefs,
+    getAllTasks,
     deleteSelectedTasks,
     selectTaskRef,
     moveSelectedTasks,
     changeTaskColor,
     copyByReferenceSelectedTaskRefs,
-    duplicateSelectedTaskRefs
+    duplicateSelectedTaskRefs,
   }
 }
 

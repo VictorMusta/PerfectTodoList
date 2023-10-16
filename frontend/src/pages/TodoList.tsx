@@ -8,19 +8,35 @@ interface TodoListProps {
   listId: number
 }
 function TodoList(props: TodoListProps) {
-  let { taskRefs } = useContext(TaskContext)
+  let { tasks, taskRefs, getAllTasks, getAllTaskRefs } = useContext(TaskContext)
+
+  const GetInitData = React.useEffect(() => {
+    // let taskRefsList = getAllTaskRefs()
+    // console.log("taskRefs[0]", taskRefsList[0])
+    // console.log("taskRefs[0].array[0]", taskRefsList[0].array[0])
+    // console.log("taskRefs[0].array", taskRefsList[0].array)
+    // console.log("coucou on startup !");
+    getAllTasks()
+    getAllTaskRefs()
+
+  }, []);
 
   const updateTaskCardList = React.useMemo(() => {
-    let TaskTable: JSX.Element[] = []
+    // getAllTaskRefs()
+    console.log("ici mec")
+    tasks.forEach(task => console.log(task))
+    console.log("ici mec")
+    console.log(tasks)
+    console.log("coucou on startup !");
+
+    let taskRefsTable: JSX.Element[] = []
     taskRefs.forEach(taskRef => {
-      if (props.listId === taskRef.idList) {
-        TaskTable.push(<TaskCard key={taskRef.idTaskRef} taskRef={taskRef} />)
-        // return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
-      }
+      taskRefsTable.push(<TaskCard key={taskRef.idTaskRef} taskRef={taskRef} />)
+      // return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
     }
     )
-    return TaskTable;
-  }, [taskRefs, props.listId]);
+    return taskRefsTable;
+  }, [tasks, taskRefs]);
 
   return (
     <div >

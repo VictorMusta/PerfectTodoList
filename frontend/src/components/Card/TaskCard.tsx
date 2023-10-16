@@ -24,14 +24,14 @@ export default function TaskCard(props: TaskCardProps) {
     return <div className="Task-Card" style={{
         backgroundColor: props.taskRef.task.color
     }} >
-        <h2>{props.taskRef.task.title}</h2>
+        <h2>{props.taskRef.idTaskRef}</h2>
 
         <input type="text" onChange={
             HandleColorChange
-        } placeholder="Change Color!" value={props.taskRef.task.color} />
+        } placeholder="Change Color!" value={props.taskRef.task} />
         <div style={{ display: "flex" }}>
             <p>select :</p>
-            <input type="checkbox" onClick={handleSelectCheckBoxClick} />
+            <input type="checkbox" value={props.taskRef.selected} onClick={handleSelectCheckBoxClick} />
         </div>
     </div>
 }

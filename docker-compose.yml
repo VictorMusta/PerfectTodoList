@@ -25,11 +25,14 @@ services:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
   frontend:
     container_name: frontend
+    image: node:18-alpine
     build:
-      context: .
-      dockerfile: "./frontend/Dockerfile"
+      context: ./frontend
+    volumes:
+      - ./frontend:/frontend
     ports:
       - "3000:3000"
+    command: [ "npm", "start" ]
   backend:
     container_name: backend
     build:

@@ -2,9 +2,12 @@ PROTODIR = ./frontend/src/protos
 FRONTPROTOSTUBSDIR = ./frontend/src/protos/protostubs/
 BACKPROTOSTUBSDIR = ./backend/protos/protostubs/
 
-main: protoc-gen
+build: install protoc-gen
 	docker compose up --build
 
+install:build
+	cd frontend && npm install
+	
 protoc-gen: protoc-gen-back protoc-gen-front
 
 createprotofiles:

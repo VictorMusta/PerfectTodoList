@@ -11,11 +11,13 @@ class Task(Base):
         UUID(as_uuid=False), unique=True, primary_key=True, default=uuid.uuid4
     )
     title: Mapped[str] = mapped_column(String(50))
-    color: Mapped[str] = mapped_column(String(20))
+    color: Mapped[str] = mapped_column(String(20), default="Yellow")
     resolved: Mapped[bool] = mapped_column(default=False)
 
     def as_dict(self) -> dict:
         try:
-            return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+            res = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+            print("res", res)
+            return res
         except Exception as e:
             raise ValueError from e

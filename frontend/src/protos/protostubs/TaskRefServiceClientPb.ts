@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.4.2
 // 	protoc              v3.12.4
-// source: TaskRefs.proto
+// source: TaskRef.proto
 
 
 /* eslint-disable */
@@ -17,11 +17,11 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as TaskRefs_pb from './TaskRefs_pb';
+import * as TaskRef_pb from './TaskRef_pb';
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
 
-export class TaskRefsServiceClient {
+export class TaskRefServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
@@ -41,35 +41,35 @@ export class TaskRefsServiceClient {
   }
 
   methodDescriptorcreate_task_ref = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/create_task_ref',
+    '/TaskRefService/create_task_ref',
     grpcWeb.MethodType.UNARY,
-    TaskRefs_pb.CreateTaskRefRequest,
+    TaskRef_pb.CreateTaskRefRequest,
     google_protobuf_empty_pb.Empty,
-    (request: TaskRefs_pb.CreateTaskRefRequest) => {
+    (request: TaskRef_pb.CreateTaskRefRequest) => {
       return request.serializeBinary();
     },
     google_protobuf_empty_pb.Empty.deserializeBinary
   );
 
   create_task_ref(
-    request: TaskRefs_pb.CreateTaskRefRequest,
+    request: TaskRef_pb.CreateTaskRefRequest,
     metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
 
   create_task_ref(
-    request: TaskRefs_pb.CreateTaskRefRequest,
+    request: TaskRef_pb.CreateTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   create_task_ref(
-    request: TaskRefs_pb.CreateTaskRefRequest,
+    request: TaskRef_pb.CreateTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/create_task_ref',
+          '/TaskRefService/create_task_ref',
         request,
         metadata || {},
         this.methodDescriptorcreate_task_ref,
@@ -77,42 +77,42 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/create_task_ref',
+      '/TaskRefService/create_task_ref',
     request,
     metadata || {},
     this.methodDescriptorcreate_task_ref);
   }
 
   methodDescriptorget_task_ref = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/get_task_ref',
+    '/TaskRefService/get_task_ref',
     grpcWeb.MethodType.UNARY,
-    TaskRefs_pb.GetTaskRefRequest,
-    TaskRefs_pb.GetTaskRefResponse,
-    (request: TaskRefs_pb.GetTaskRefRequest) => {
+    TaskRef_pb.GetTaskRefRequest,
+    TaskRef_pb.GetTaskRefResponse,
+    (request: TaskRef_pb.GetTaskRefRequest) => {
       return request.serializeBinary();
     },
-    TaskRefs_pb.GetTaskRefResponse.deserializeBinary
+    TaskRef_pb.GetTaskRefResponse.deserializeBinary
   );
 
   get_task_ref(
-    request: TaskRefs_pb.GetTaskRefRequest,
-    metadata: grpcWeb.Metadata | null): Promise<TaskRefs_pb.GetTaskRefResponse>;
+    request: TaskRef_pb.GetTaskRefRequest,
+    metadata: grpcWeb.Metadata | null): Promise<TaskRef_pb.GetTaskRefResponse>;
 
   get_task_ref(
-    request: TaskRefs_pb.GetTaskRefRequest,
+    request: TaskRef_pb.GetTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.GetTaskRefResponse) => void): grpcWeb.ClientReadableStream<TaskRefs_pb.GetTaskRefResponse>;
+               response: TaskRef_pb.GetTaskRefResponse) => void): grpcWeb.ClientReadableStream<TaskRef_pb.GetTaskRefResponse>;
 
   get_task_ref(
-    request: TaskRefs_pb.GetTaskRefRequest,
+    request: TaskRef_pb.GetTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.GetTaskRefResponse) => void) {
+               response: TaskRef_pb.GetTaskRefResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/get_task_ref',
+          '/TaskRefService/get_task_ref',
         request,
         metadata || {},
         this.methodDescriptorget_task_ref,
@@ -120,42 +120,42 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/get_task_ref',
+      '/TaskRefService/get_task_ref',
     request,
     metadata || {},
     this.methodDescriptorget_task_ref);
   }
 
   methodDescriptorget_all_task_refs = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/get_all_task_refs',
+    '/TaskRefService/get_all_task_refs',
     grpcWeb.MethodType.UNARY,
     google_protobuf_empty_pb.Empty,
-    TaskRefs_pb.GetAllTaskRefsResponse,
+    TaskRef_pb.GetAllTaskRefResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    TaskRefs_pb.GetAllTaskRefsResponse.deserializeBinary
+    TaskRef_pb.GetAllTaskRefResponse.deserializeBinary
   );
 
   get_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
-    metadata: grpcWeb.Metadata | null): Promise<TaskRefs_pb.GetAllTaskRefsResponse>;
+    metadata: grpcWeb.Metadata | null): Promise<TaskRef_pb.GetAllTaskRefResponse>;
 
   get_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.GetAllTaskRefsResponse) => void): grpcWeb.ClientReadableStream<TaskRefs_pb.GetAllTaskRefsResponse>;
+               response: TaskRef_pb.GetAllTaskRefResponse) => void): grpcWeb.ClientReadableStream<TaskRef_pb.GetAllTaskRefResponse>;
 
   get_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.GetAllTaskRefsResponse) => void) {
+               response: TaskRef_pb.GetAllTaskRefResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/get_all_task_refs',
+          '/TaskRefService/get_all_task_refs',
         request,
         metadata || {},
         this.methodDescriptorget_all_task_refs,
@@ -163,42 +163,42 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/get_all_task_refs',
+      '/TaskRefService/get_all_task_refs',
     request,
     metadata || {},
     this.methodDescriptorget_all_task_refs);
   }
 
   methodDescriptorupdate_task_ref = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/update_task_ref',
+    '/TaskRefService/update_task_ref',
     grpcWeb.MethodType.UNARY,
-    TaskRefs_pb.UpdateTaskRefRequest,
+    TaskRef_pb.UpdateTaskRefRequest,
     google_protobuf_empty_pb.Empty,
-    (request: TaskRefs_pb.UpdateTaskRefRequest) => {
+    (request: TaskRef_pb.UpdateTaskRefRequest) => {
       return request.serializeBinary();
     },
     google_protobuf_empty_pb.Empty.deserializeBinary
   );
 
   update_task_ref(
-    request: TaskRefs_pb.UpdateTaskRefRequest,
+    request: TaskRef_pb.UpdateTaskRefRequest,
     metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
 
   update_task_ref(
-    request: TaskRefs_pb.UpdateTaskRefRequest,
+    request: TaskRef_pb.UpdateTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   update_task_ref(
-    request: TaskRefs_pb.UpdateTaskRefRequest,
+    request: TaskRef_pb.UpdateTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/update_task_ref',
+          '/TaskRefService/update_task_ref',
         request,
         metadata || {},
         this.methodDescriptorupdate_task_ref,
@@ -206,42 +206,42 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/update_task_ref',
+      '/TaskRefService/update_task_ref',
     request,
     metadata || {},
     this.methodDescriptorupdate_task_ref);
   }
 
   methodDescriptordelete_task_ref = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/delete_task_ref',
+    '/TaskRefService/delete_task_ref',
     grpcWeb.MethodType.UNARY,
-    TaskRefs_pb.DeleteTaskRefRequest,
+    TaskRef_pb.DeleteTaskRefRequest,
     google_protobuf_empty_pb.Empty,
-    (request: TaskRefs_pb.DeleteTaskRefRequest) => {
+    (request: TaskRef_pb.DeleteTaskRefRequest) => {
       return request.serializeBinary();
     },
     google_protobuf_empty_pb.Empty.deserializeBinary
   );
 
   delete_task_ref(
-    request: TaskRefs_pb.DeleteTaskRefRequest,
+    request: TaskRef_pb.DeleteTaskRefRequest,
     metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
 
   delete_task_ref(
-    request: TaskRefs_pb.DeleteTaskRefRequest,
+    request: TaskRef_pb.DeleteTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
 
   delete_task_ref(
-    request: TaskRefs_pb.DeleteTaskRefRequest,
+    request: TaskRef_pb.DeleteTaskRefRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
                response: google_protobuf_empty_pb.Empty) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/delete_task_ref',
+          '/TaskRefService/delete_task_ref',
         request,
         metadata || {},
         this.methodDescriptordelete_task_ref,
@@ -249,42 +249,42 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/delete_task_ref',
+      '/TaskRefService/delete_task_ref',
     request,
     metadata || {},
     this.methodDescriptordelete_task_ref);
   }
 
   methodDescriptordelete_all_task_refs = new grpcWeb.MethodDescriptor(
-    '/TaskRefsService/delete_all_task_refs',
+    '/TaskRefService/delete_all_task_refs',
     grpcWeb.MethodType.UNARY,
     google_protobuf_empty_pb.Empty,
-    TaskRefs_pb.DeleteAllTaskRefsResponse,
+    TaskRef_pb.DeleteAllTaskRefResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    TaskRefs_pb.DeleteAllTaskRefsResponse.deserializeBinary
+    TaskRef_pb.DeleteAllTaskRefResponse.deserializeBinary
   );
 
   delete_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
-    metadata: grpcWeb.Metadata | null): Promise<TaskRefs_pb.DeleteAllTaskRefsResponse>;
+    metadata: grpcWeb.Metadata | null): Promise<TaskRef_pb.DeleteAllTaskRefResponse>;
 
   delete_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.DeleteAllTaskRefsResponse) => void): grpcWeb.ClientReadableStream<TaskRefs_pb.DeleteAllTaskRefsResponse>;
+               response: TaskRef_pb.DeleteAllTaskRefResponse) => void): grpcWeb.ClientReadableStream<TaskRef_pb.DeleteAllTaskRefResponse>;
 
   delete_all_task_refs(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: TaskRefs_pb.DeleteAllTaskRefsResponse) => void) {
+               response: TaskRef_pb.DeleteAllTaskRefResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/TaskRefsService/delete_all_task_refs',
+          '/TaskRefService/delete_all_task_refs',
         request,
         metadata || {},
         this.methodDescriptordelete_all_task_refs,
@@ -292,7 +292,7 @@ export class TaskRefsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/TaskRefsService/delete_all_task_refs',
+      '/TaskRefService/delete_all_task_refs',
     request,
     metadata || {},
     this.methodDescriptordelete_all_task_refs);

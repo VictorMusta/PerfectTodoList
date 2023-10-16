@@ -141,39 +141,39 @@ export namespace UpdateTaskRefRequest {
   }
 }
 
-export class GetAllTaskRefsResponse extends jspb.Message {
+export class GetAllTaskRefResponse extends jspb.Message {
   getTaskRefsList(): Array<TaskRef>;
-  setTaskRefsList(value: Array<TaskRef>): GetAllTaskRefsResponse;
-  clearTaskRefsList(): GetAllTaskRefsResponse;
+  setTaskRefsList(value: Array<TaskRef>): GetAllTaskRefResponse;
+  clearTaskRefsList(): GetAllTaskRefResponse;
   addTaskRefs(value?: TaskRef, index?: number): TaskRef;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetAllTaskRefsResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetAllTaskRefsResponse): GetAllTaskRefsResponse.AsObject;
-  static serializeBinaryToWriter(message: GetAllTaskRefsResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetAllTaskRefsResponse;
-  static deserializeBinaryFromReader(message: GetAllTaskRefsResponse, reader: jspb.BinaryReader): GetAllTaskRefsResponse;
+  toObject(includeInstance?: boolean): GetAllTaskRefResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAllTaskRefResponse): GetAllTaskRefResponse.AsObject;
+  static serializeBinaryToWriter(message: GetAllTaskRefResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAllTaskRefResponse;
+  static deserializeBinaryFromReader(message: GetAllTaskRefResponse, reader: jspb.BinaryReader): GetAllTaskRefResponse;
 }
 
-export namespace GetAllTaskRefsResponse {
+export namespace GetAllTaskRefResponse {
   export type AsObject = {
     taskRefsList: Array<TaskRef.AsObject>,
   }
 }
 
-export class DeleteAllTaskRefsResponse extends jspb.Message {
+export class DeleteAllTaskRefResponse extends jspb.Message {
   getAmountOfDeletedTaskRefs(): number;
-  setAmountOfDeletedTaskRefs(value: number): DeleteAllTaskRefsResponse;
+  setAmountOfDeletedTaskRefs(value: number): DeleteAllTaskRefResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): DeleteAllTaskRefsResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: DeleteAllTaskRefsResponse): DeleteAllTaskRefsResponse.AsObject;
-  static serializeBinaryToWriter(message: DeleteAllTaskRefsResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): DeleteAllTaskRefsResponse;
-  static deserializeBinaryFromReader(message: DeleteAllTaskRefsResponse, reader: jspb.BinaryReader): DeleteAllTaskRefsResponse;
+  toObject(includeInstance?: boolean): DeleteAllTaskRefResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteAllTaskRefResponse): DeleteAllTaskRefResponse.AsObject;
+  static serializeBinaryToWriter(message: DeleteAllTaskRefResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteAllTaskRefResponse;
+  static deserializeBinaryFromReader(message: DeleteAllTaskRefResponse, reader: jspb.BinaryReader): DeleteAllTaskRefResponse;
 }
 
-export namespace DeleteAllTaskRefsResponse {
+export namespace DeleteAllTaskRefResponse {
   export type AsObject = {
     amountOfDeletedTaskRefs: number,
   }

@@ -1,21 +1,21 @@
 # ruff: noqa: N802, PLR6301
-from TaskRefs_pb2 import (
-    GetAllTaskRefsResponse,
+from TaskRef_pb2 import (
+    GetAllTaskRefResponse,
     GetTaskRefRequest,
     GetTaskRefResponse,
     DeleteTaskRefRequest,
-    DeleteAllTaskRefsResponse,
+    DeleteAllTaskRefResponse,
 )
 
 from functions.task_ref_functions import TaskRefFunctions
-import TaskRefs_pb2_grpc as TaskRef_stub_grpc
+import TaskRef_pb2_grpc as TaskRef_stub_grpc
 
 import google.protobuf.empty_pb2
 
 empty = google.protobuf.empty_pb2.Empty()
 
 
-class TaskRefService(TaskRef_stub_grpc.TaskRefsServiceServicer):
+class TaskRefService(TaskRef_stub_grpc.TaskRefServiceServicer):
     def __init__(self, *args, **kwargs) -> None:
         pass
 
@@ -28,10 +28,10 @@ class TaskRefService(TaskRef_stub_grpc.TaskRefsServiceServicer):
         result = {"task_ref": result}
         return GetTaskRefResponse(**result)
 
-    def get_all_task_refs(self, request, context) -> GetAllTaskRefsResponse:
+    def get_all_task_refs(self, request, context) -> GetAllTaskRefResponse:
         task_list = TaskRefFunctions.get_all_task_refs()
         result = {"task_refs": task_list}
-        return GetAllTaskRefsResponse(**result)
+        return GetAllTaskRefResponse(**result)
 
     def update_task_ref(self, request, context):
         TaskRefFunctions.update_task_ref(
@@ -49,4 +49,4 @@ class TaskRefService(TaskRef_stub_grpc.TaskRefsServiceServicer):
     def delete_all_task_refs(self, request, _context) -> None:
         amount_of_deleted_tasks = TaskRefFunctions.delete_all_task_refs()
         result = {"amount_of_deleted_task_refs": amount_of_deleted_tasks}
-        return DeleteAllTaskRefsResponse(**result)
+        return DeleteAllTaskRefResponse(**result)

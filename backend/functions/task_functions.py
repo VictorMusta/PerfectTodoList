@@ -1,6 +1,6 @@
 from flask import abort
 from models.Task import Task
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, false
 from sqlalchemy.orm import Session
 
 
@@ -14,10 +14,7 @@ class TaskFunctions:
     def new_task(title: str) -> None:
         with Session(engine) as session:
             try:
-                task_object = Task(
-                    title=title,
-                    color="Yellow",
-                )
+                task_object = Task(title=title, color="red")
                 print(task_object)
                 session.add(task_object)
                 session.commit()

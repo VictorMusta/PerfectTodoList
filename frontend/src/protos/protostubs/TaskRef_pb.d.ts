@@ -13,9 +13,6 @@ export class TaskRef extends jspb.Message {
   getIdList(): number;
   setIdList(value: number): TaskRef;
 
-  getSelected(): boolean;
-  setSelected(value: boolean): TaskRef;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TaskRef.AsObject;
   static toObject(includeInstance: boolean, msg: TaskRef): TaskRef.AsObject;
@@ -29,7 +26,6 @@ export namespace TaskRef {
     idTaskRef: string,
     idTask: string,
     idList: number,
-    selected: boolean,
   }
 }
 
@@ -121,9 +117,6 @@ export class UpdateTaskRefRequest extends jspb.Message {
   getIdList(): number;
   setIdList(value: number): UpdateTaskRefRequest;
 
-  getSelected(): boolean;
-  setSelected(value: boolean): UpdateTaskRefRequest;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpdateTaskRefRequest.AsObject;
   static toObject(includeInstance: boolean, msg: UpdateTaskRefRequest): UpdateTaskRefRequest.AsObject;
@@ -137,7 +130,6 @@ export namespace UpdateTaskRefRequest {
     idTaskRef: string,
     idTask: string,
     idList: number,
-    selected: boolean,
   }
 }
 

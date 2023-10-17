@@ -44,28 +44,28 @@ export class TaskServiceClient {
     '/TaskService/create_task',
     grpcWeb.MethodType.UNARY,
     Task_pb.CreateTaskRequest,
-    google_protobuf_empty_pb.Empty,
+    Task_pb.CreateTaskResponse,
     (request: Task_pb.CreateTaskRequest) => {
       return request.serializeBinary();
     },
-    google_protobuf_empty_pb.Empty.deserializeBinary
+    Task_pb.CreateTaskResponse.deserializeBinary
   );
 
   create_task(
     request: Task_pb.CreateTaskRequest,
-    metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
+    metadata: grpcWeb.Metadata | null): Promise<Task_pb.CreateTaskResponse>;
 
   create_task(
     request: Task_pb.CreateTaskRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
+               response: Task_pb.CreateTaskResponse) => void): grpcWeb.ClientReadableStream<Task_pb.CreateTaskResponse>;
 
   create_task(
     request: Task_pb.CreateTaskRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: google_protobuf_empty_pb.Empty) => void) {
+               response: Task_pb.CreateTaskResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +

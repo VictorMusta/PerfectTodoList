@@ -15,7 +15,6 @@ message TaskRef{
     string id_task_ref = 1;
     string id_task = 2;
     int32 id_list = 3;
-    bool selected = 4;
 }
 
 //create task ref
@@ -43,7 +42,6 @@ message UpdateTaskRefRequest {
     string id_task_ref = 1;
     string id_task = 2;
     int32 id_list = 3;
-    bool selected = 4;
 
 } 
 

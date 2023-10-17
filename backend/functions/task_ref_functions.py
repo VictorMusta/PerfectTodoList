@@ -63,6 +63,7 @@ class TaskRefFunctions:
             )
             if amount_of_deleted_task_refs > 0:
                 session.commit()
+                return amount_of_deleted_task_refs
             return abort(404)
 
     @staticmethod

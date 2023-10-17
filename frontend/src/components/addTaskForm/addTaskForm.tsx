@@ -3,7 +3,7 @@ import TasksContext from "../../TasksContext"
 
 
 const AddTaskForm = () => {
-    const { createNewTask, taskRefs } = useContext(TasksContext)
+    const { createNewTask, taskRefs, deleteAllTasks } = useContext(TasksContext)
     const [numberOfTaskRefsInFirstList, setNumberOfTaskRefsInList] = React.useState(0);
     const [titleField, setTitleField] = React.useState("")
 
@@ -32,6 +32,7 @@ const AddTaskForm = () => {
         <div >
             <input type='text' placeholder='Name of your Task' onChange={handleTitleFieldChange} />
             <button className='Task-button' disabled={titleField === "" || numberOfTaskRefsInFirstList >= 6} onClick={handleSubmit}>ADD</button>
+            <button className='Task-button' disabled={taskRefs.size === 0} onClick={deleteAllTasks}>CLEAR ALL TASKS</button>
         </div >
     )
 }

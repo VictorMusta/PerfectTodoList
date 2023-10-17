@@ -14,7 +14,6 @@ class TaskRef(Base):
         UUID(as_uuid=False), ForeignKey("task.id_task", ondelete="CASCADE")
     )
     id_list: Mapped[int] = mapped_column(Integer())
-    selected: Mapped[bool] = mapped_column(default=False)
 
     def as_dict(self) -> dict:
         try:

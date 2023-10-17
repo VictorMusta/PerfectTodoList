@@ -11,22 +11,20 @@ engine = create_engine(
 
 class TaskFunctions:
     @staticmethod
-    def new_task(title: str) -> None:
+    def new_task(title: str) -> str:
         with Session(engine) as session:
             try:
                 task_object = Task(title=title, color="red")
-                print(task_object)
                 session.add(task_object)
                 session.commit()
+                return str(task_object.id_task)
             except ValueError as e:
                 abort(400, e)
 
     @staticmethod
     def get_task(id_task: str) -> Task:
-        print(id_task)
         with Session(engine) as session:
             task = session.scalar(session.query(Task).where(Task.id_task == id_task))
-            print(task)
             if task:
                 return task.as_dict()
             return abort(404)

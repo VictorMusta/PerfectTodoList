@@ -13,8 +13,8 @@ export default function TaskCard(props: TaskCardProps) {
         changeTaskColor
     } = useContext(TaskContext)
 
-    const HandleColorChange = (event: { target: { value: any; }; }) => {
-        changeTaskColor(props.taskRef.task.idTask, event.target.value)
+    const HandleColorChange = (target: any) => {
+        changeTaskColor(props.taskRef.task.idTask, target.value)
 
     }
     const handleSelectCheckBoxClick = () => {
@@ -24,14 +24,18 @@ export default function TaskCard(props: TaskCardProps) {
     return <div className="Task-Card" style={{
         backgroundColor: props.taskRef.task.color
     }} >
-        <h2>{props.taskRef.idTaskRef}</h2>
+        <p>Title : {props.taskRef.task.title}</p>
 
-        <input type="text" onChange={
-            HandleColorChange
-        } placeholder="Change Color!" value={props.taskRef.task} />
+        <input type="text" onKeyUp={(key) => {
+            console.log(key);
+            if (key.key == "Enter") {
+                HandleColorChange(key.target)
+            }
+        }
+        } placeholder={props.taskRef.task.color} />
         <div style={{ display: "flex" }}>
-            <p>select :</p>
-            <input type="checkbox" value={props.taskRef.selected} onClick={handleSelectCheckBoxClick} />
+            <p>Select task :</p>
+            <input type="checkbox" defaultChecked={props.taskRef.selected} onClick={handleSelectCheckBoxClick} />
         </div>
     </div>
 }

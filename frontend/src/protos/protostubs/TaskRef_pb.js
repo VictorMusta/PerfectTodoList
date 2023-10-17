@@ -7,7 +7,7 @@
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
-
+/* eslint-disable */
 var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
@@ -224,8 +224,7 @@ proto.TaskRef.toObject = function(includeInstance, msg) {
   var f, obj = {
     idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, ""),
     idTask: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    idList: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    selected: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
+    idList: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -274,10 +273,6 @@ proto.TaskRef.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readInt32());
       msg.setIdList(value);
       break;
-    case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSelected(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -325,13 +320,6 @@ proto.TaskRef.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeInt32(
       3,
-      f
-    );
-  }
-  f = message.getSelected();
-  if (f) {
-    writer.writeBool(
-      4,
       f
     );
   }
@@ -389,24 +377,6 @@ proto.TaskRef.prototype.getIdList = function() {
  */
 proto.TaskRef.prototype.setIdList = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
-};
-
-
-/**
- * optional bool selected = 4;
- * @return {boolean}
- */
-proto.TaskRef.prototype.getSelected = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.TaskRef} returns this
- */
-proto.TaskRef.prototype.setSelected = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
@@ -1015,8 +985,7 @@ proto.UpdateTaskRefRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     idTaskRef: jspb.Message.getFieldWithDefault(msg, 1, ""),
     idTask: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    idList: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    selected: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
+    idList: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -1065,10 +1034,6 @@ proto.UpdateTaskRefRequest.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readInt32());
       msg.setIdList(value);
       break;
-    case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSelected(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1116,13 +1081,6 @@ proto.UpdateTaskRefRequest.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeInt32(
       3,
-      f
-    );
-  }
-  f = message.getSelected();
-  if (f) {
-    writer.writeBool(
-      4,
       f
     );
   }
@@ -1180,24 +1138,6 @@ proto.UpdateTaskRefRequest.prototype.getIdList = function() {
  */
 proto.UpdateTaskRefRequest.prototype.setIdList = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
-};
-
-
-/**
- * optional bool selected = 4;
- * @return {boolean}
- */
-proto.UpdateTaskRefRequest.prototype.getSelected = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.UpdateTaskRefRequest} returns this
- */
-proto.UpdateTaskRefRequest.prototype.setSelected = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 

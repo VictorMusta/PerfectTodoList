@@ -38,7 +38,6 @@ class TaskRefService(TaskRef_stub_grpc.TaskRefServiceServicer):
             request.id_task_ref,
             id_task=request.id_task,
             id_list=request.id_list,
-            selected=request.selected,
         )
         return empty
 

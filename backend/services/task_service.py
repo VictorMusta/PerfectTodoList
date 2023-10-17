@@ -3,6 +3,7 @@ from Task_pb2 import (
     GetAllTasksResponse,
     GetTaskResponse,
     CreateTaskRequest,
+    CreateTaskResponse,
     GetTaskRequest,
     DeleteTaskRequest,
     DeleteAllTasksResponse,
@@ -20,9 +21,10 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
     def __init__(self, *args, **kwargs) -> None:
         pass
 
-    def create_task(self, request: CreateTaskRequest, _context):
-        TaskFunctions.new_task(request.title)
-        return empty
+    def create_task(self, request: CreateTaskRequest, _context) -> CreateTaskResponse:
+        id_task = TaskFunctions.new_task(request.title)
+        result = {"id_task": id_task}
+        return CreateTaskResponse(**result)
 
     def get_task(self, request: GetTaskRequest, _context) -> GetAllTasksResponse:
         task = TaskFunctions.get_task(request.id_task)

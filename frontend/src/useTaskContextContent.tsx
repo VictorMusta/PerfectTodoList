@@ -90,21 +90,22 @@ export const useTaskContextContent = () => {
         });
     }, [createNewTaskRef, taskService]);
 
-    const deleteSelectedTasks = React.useCallback((idList: number) => {
-        let request = new DeleteTaskRefRequest();
-        taskRefs.forEach(taskRef => {
-            if (taskRef.selected === true && taskRef.idList === idList) {
-                request.setIdTaskRef(taskRef.idTaskRef);
-                taskRefService.delete_task_ref(request, {}, function (err: any, response: any) {
-                    if (err) {
-                        console.log(err.code);
-                        console.log(err.message);
-                    }
-                });
-            }
-        });
-        getDatas();
-    }, [getDatas, taskRefService, taskRefs]);
+    const deleteSelectedTaskRefs
+        = React.useCallback((idList: number) => {
+            let request = new DeleteTaskRefRequest();
+            taskRefs.forEach(taskRef => {
+                if (taskRef.selected === true && taskRef.idList === idList) {
+                    request.setIdTaskRef(taskRef.idTaskRef);
+                    taskRefService.delete_task_ref(request, {}, function (err: any, response: any) {
+                        if (err) {
+                            console.log(err.code);
+                            console.log(err.message);
+                        }
+                    });
+                }
+            });
+            getDatas();
+        }, [getDatas, taskRefService, taskRefs]);
 
 
     const deleteAllTasks = React.useCallback(() => {
@@ -212,7 +213,8 @@ export const useTaskContextContent = () => {
         getDatas,
         getAllTaskRefs,
         getAllTasks,
-        deleteSelectedTasks,
+        deleteSelectedTaskRefs
+        ,
         deleteAllTasks,
         selectTaskRef,
         moveSelectedTasks,

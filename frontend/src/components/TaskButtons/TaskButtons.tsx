@@ -9,7 +9,8 @@ const TaskButtons = (props: TaskButtonsProps) => {
 
     let {
         taskRefs,
-        deleteSelectedTasks,
+        deleteSelectedTaskRefs
+        ,
         moveSelectedTasks,
         copyByReferenceSelectedTaskRefs,
         duplicateSelectedTaskRefs,
@@ -37,7 +38,8 @@ const TaskButtons = (props: TaskButtonsProps) => {
 
     return (
         <>
-            <button className='Task-button' disabled={selectedTaskRefsNumber === 0} onClick={() => deleteSelectedTasks(props.idList)} >DELETE</button >
+            <button className='Task-button' disabled={selectedTaskRefsNumber === 0} onClick={() => deleteSelectedTaskRefs
+                (props.idList)} >DELETE</button >
 
             <button className='Task-button' disabled={(selectedTaskRefsNumber + TaskRefsOfIdListSize) > MAX_TASK_REFS_PER_LIST || selectedTaskRefsNumber === 0} onClick={() => duplicateSelectedTaskRefs(props.idList)}>DUPLICATE</button>
 

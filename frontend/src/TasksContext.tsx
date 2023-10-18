@@ -7,7 +7,7 @@ import { TaskRefServiceClient } from './protos/protostubs/TaskRefServiceClientPb
 import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
 import { CreateTaskRequest, UpdateTaskRequest } from './protos/protostubs/Task_pb';
 type createNewTaskType = (title: string, idList: number) => void
-type deleteSelectedTasksType = (idList: number) => void
+type deleteSelectedTaskRefsType = (idList: number) => void
 type selectTaskRefType = (taskRef: TaskRef) => void
 type moveSelectedTasksType = (idList: number) => void
 type changeTaskColorType = (taskId: string, newColor: string) => void
@@ -23,7 +23,7 @@ interface TaskContextInterface {
   tasks: Map<string, Task>
   taskRefs: Map<string, TaskRef>
   createNewTask: createNewTaskType
-  deleteSelectedTasks: deleteSelectedTasksType
+  deleteSelectedTaskRefs: deleteSelectedTaskRefsType
   deleteAllTasks: deleteAllTasksType
   selectTaskRef: selectTaskRefType
   moveSelectedTasks: moveSelectedTasksType
@@ -53,7 +53,7 @@ const mydefaultInterfaceObject: TaskContextInterface = {
   getAllTasks: () => {
     throw new Error("function not implemented yet.")
   },
-  deleteSelectedTasks: (_) => {
+  deleteSelectedTaskRefs: (_) => {
     throw new Error("function not implemented yet.")
   },
   deleteAllTasks: () => {
@@ -82,13 +82,12 @@ const useTaskContextContent = () => {
   const [tasks, setTasks] = React.useState(new Map<string, Task>())
   const [taskRefs, setTaskRefs] = React.useState(new Map<string, TaskRef>())
 
-  let taskService = new TaskServiceClient("http://localhost:10000")
-  let taskRefService = new TaskRefServiceClient("http://localhost:10000")
+  let taskService = React.useMemo(() => { return new TaskServiceClient("http://localhost:10000") }, [])
+  let taskRefService = React.useMemo(() => { return new TaskRefServiceClient("http://localhost:10000") }, [])
 
   const getAllTasks = React.useCallback(() => {
     setTasks(new Map())
     let empty = new google_protobuf_empty_pb.Empty()
-
     taskService.get_all_tasks(empty, {}, function (err: any, response: any) {
       if (err) {
         console.log(err.code);
@@ -135,7 +134,7 @@ const useTaskContextContent = () => {
   const getDatas = React.useCallback(() => {
     getAllTasks();
     getAllTaskRefs();
-  }, [getAllTaskRefs, getAllTasks])
+  }, [getAllTaskRefs, getAllTasks]);
 
   const createNewTaskRef = React.useCallback((idTask: string, idList: number) => {
     let request = new CreateTaskRefRequest()
@@ -162,26 +161,28 @@ const useTaskContextContent = () => {
     });
   }, [createNewTaskRef, taskService])
 
-  const deleteSelectedTasks = React.useCallback((idList: number) => {
+  const deleteSelectedTaskRefs = React.useCallback((idList: number) => {
     let request = new DeleteTaskRefRequest()
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && taskRef.idList === idList) {
+        console.log("deleted ! ", taskRef);
         request.setIdTaskRef(taskRef.idTaskRef)
         taskRefService.delete_task_ref(request, {}, function (err: any, response: any) {
           if (err) {
             console.log(err.code);
             console.log(err.message);
           }
+          taskRefs.delete(taskRef.idTaskRef)
+          setTaskRefs(new Map(taskRefs))
         })
       }
+      getDatas()
     })
-    getDatas()
   }, [getDatas, taskRefService, taskRefs])
 
 
   const deleteAllTasks = React.useCallback(() => {
     let empty = new google_protobuf_empty_pb.Empty()
-
     taskService.delete_all_tasks(empty, {}, function (err: any, response: any) {
       if (err) {
         console.log(err.code);
@@ -189,17 +190,14 @@ const useTaskContextContent = () => {
       }
     })
     getDatas()
-
   }, [getDatas, taskService])
 
   const selectTaskRef = React.useCallback((taskRef: TaskRef) => {
     taskRef.selected = !taskRef.selected
     setTaskRefs(new Map(taskRefs.set(taskRef.idTaskRef, taskRef)))
-
   }, [taskRefs]);
 
   const moveSelectedTasks = React.useCallback((idList: number) => {
-
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true) {
         if (idList === 1) {
@@ -247,10 +245,16 @@ const useTaskContextContent = () => {
         console.log(err.code);
         console.log(err.message);
       } else {
+        let myTask = tasks.get(taskId)
+        if (myTask) {
+          myTask.color = value
+          tasks.set(taskId, myTask)
+        }
+        setTasks(new Map(tasks))
         getDatas()
       }
     })
-  }, [getDatas, taskService]);
+  }, [getDatas, taskService, tasks]);
 
   const copyByReferenceSelectedTaskRefs = React.useCallback((idList: number) => {
     taskRefs.forEach(taskRef => {
@@ -285,7 +289,7 @@ const useTaskContextContent = () => {
     getDatas,
     getAllTaskRefs,
     getAllTasks,
-    deleteSelectedTasks,
+    deleteSelectedTaskRefs,
     deleteAllTasks,
     selectTaskRef,
     moveSelectedTasks,

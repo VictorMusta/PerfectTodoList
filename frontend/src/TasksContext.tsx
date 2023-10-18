@@ -6,9 +6,7 @@ import { CreateTaskRefRequest, DeleteTaskRefRequest, UpdateTaskRefRequest } from
 import { TaskRefServiceClient } from './protos/protostubs/TaskRefServiceClientPb';
 import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
 import { CreateTaskRequest, UpdateTaskRequest } from './protos/protostubs/Task_pb';
-// import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
-// import { TaskRequest } from './protos/protostubs/Task_pb';
-// Création des types afin de typer les fonctions présentes dans mon interface.
+import { log } from 'console';
 type createNewTaskType = (title: string) => void
 type deleteSelectedTasksType = (idList: number) => void
 type selectTaskRefType = (taskRef: TaskRef) => void
@@ -88,6 +86,75 @@ const useTaskContextContent = () => {
   let taskService = new TaskServiceClient("http://localhost:10000")
   let taskRefService = new TaskRefServiceClient("http://localhost:10000")
 
+  const getAllTasks = React.useCallback(() => {
+    let empty = new google_protobuf_empty_pb.Empty()
+    taskService.get_all_tasks(empty, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+        let taskMap = new Map()
+
+        response.getTasksList().forEach((task: any) => {
+          let tempTask: Task = { idTask: task.array[0], title: task.array[1], color: task.array[2], resolved: task.array[3] ? task.array[3] : false }
+          taskMap.set(tempTask.idTask, tempTask)
+        })
+
+        setTasks(new Map(taskMap))
+
+
+      }
+    });
+  }, [taskService])
+  const getAllTaskRefs = React.useCallback(() => {
+    let empty = new google_protobuf_empty_pb.Empty()
+    taskRefService.get_all_task_refs(empty, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+        let taskRefMap = new Map()
+        response.getTaskRefsList().forEach((taskRef: any) => {
+
+
+          let myTask = tasks.get(taskRef.array[1])
+
+
+          if (myTask) {
+
+            let tempTaskRef: TaskRef = {
+              idTaskRef: taskRef.array[0], task: myTask, idList: taskRef.array[2], selected: false
+            }
+
+            taskRefMap.set(tempTaskRef.idTaskRef, tempTaskRef)
+          }
+
+        })
+        setTaskRefs(new Map(taskRefMap))
+      }
+    });
+
+  }, [taskRefService, tasks]);
+
+  const getDatas = React.useCallback(() => {
+    getAllTasks();
+    getAllTaskRefs();
+  }, [getAllTaskRefs, getAllTasks])
+
+  const createNewTaskRef = React.useCallback((idTask: string) => {
+    let request = new CreateTaskRefRequest()
+    request.setIdTask(idTask)
+    request.setIdList(1)
+    taskRefService.create_task_ref(request, {}, function (err: any, response: any) {
+      if (err) {
+        console.log(err.code);
+        console.log(err.message);
+      } else {
+      }
+    })
+    getDatas()
+  }, [getDatas, taskRefService]);
+
   const createNewTask = React.useCallback((title: string) => {
     let request = new CreateTaskRequest()
     request.setTitle(title)
@@ -100,71 +167,10 @@ const useTaskContextContent = () => {
         createNewTaskRef(response.getIdTask())
       }
     });
-  }, [])
+    getDatas()
+  }, [createNewTaskRef, getDatas, taskService])
 
-  const createNewTaskRef = React.useCallback((idTask: string) => {
-    let request = new CreateTaskRefRequest()
-    request.setIdTask(idTask)
-    request.setIdList(1)
-    taskRefService.create_task_ref(request, {}, function (err: any, response: any) {
-      if (err) {
-        console.log(err.code);
-        console.log(err.message);
-      } else {
-        getDatas()
-      }
-    })
-  }, []);
-
-  const getDatas = React.useCallback(() => {
-    getAllTasks();
-    getAllTaskRefs();
-  }, [])
-
-  const getAllTasks = React.useCallback(() => {
-    let empty = new google_protobuf_empty_pb.Empty()
-    taskService.get_all_tasks(empty, {}, function (err: any, response: any) {
-      if (err) {
-        console.log(err.code);
-        console.log(err.message);
-      } else {
-        console.log(response.getTasksList());
-
-        response.getTasksList().forEach((task: any) => {
-          let tempTask: Task = { idTask: task.array[0], title: task.array[1], color: task.array[2], resolved: task.array[3] ? task.array[3] : false }
-          setTasks(new Map(tasks.set(tempTask.idTask, tempTask)))
-        })
-        // console.log("coucou")
-        // console.log(tasks)
-        // tasks.forEach(task => {
-        //   console.log(task);
-        // })
-      }
-    });
-  }, [])
-  const getAllTaskRefs = React.useCallback(() => {
-    let empty = new google_protobuf_empty_pb.Empty()
-    taskRefService.get_all_task_refs(empty, {}, function (err: any, response: any) {
-      if (err) {
-        console.log(err.code);
-        console.log(err.message);
-      } else {
-        console.log("task refs list", response.getTaskRefsList());
-        response.getTaskRefsList().forEach((taskRef: any) => {
-          let myTask = tasks.get(taskRef.array[1])
-          if (myTask) {
-            let tempTask: TaskRef = {
-              idTaskRef: taskRef.array[0], task: myTask, idList: taskRef.array[2], selected: false
-            }
-            setTaskRefs(new Map(taskRefs.set(tempTask.idTaskRef, tempTask)))
-          }
-        })
-      }
-    });
-
-  }, []);
-
-  const deleteSelectedTasks = (idList: number) => {
+  const deleteSelectedTasks = React.useCallback((idList: number) => {
     let request = new DeleteTaskRefRequest()
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && taskRef.idList === idList) {
@@ -181,7 +187,8 @@ const useTaskContextContent = () => {
       }
     })
     getDatas()
-  }
+
+  }, [getDatas, taskRefService, taskRefs])
 
   const deleteAllTasks = React.useCallback(() => {
     let empty = new google_protobuf_empty_pb.Empty()
@@ -193,15 +200,16 @@ const useTaskContextContent = () => {
       }
     })
     getDatas()
-  }, [])
 
-  const selectTaskRef = (taskRef: TaskRef) => {
+  }, [getDatas, taskService])
+
+  const selectTaskRef = React.useCallback((taskRef: TaskRef) => {
     taskRef.selected = !taskRef.selected
     setTaskRefs(new Map(taskRefs.set(taskRef.idTaskRef, taskRef)))
 
-  }
+  }, [taskRefs]);
 
-  const moveSelectedTasks = (idList: number) => {
+  const moveSelectedTasks = React.useCallback((idList: number) => {
 
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true) {
@@ -239,9 +247,9 @@ const useTaskContextContent = () => {
 
       }
     })
-  }
+  }, [getDatas, taskRefService, taskRefs]);
 
-  const changeTaskColor = (taskId: string, value: string) => {
+  const changeTaskColor = React.useCallback((taskId: string, value: string) => {
     let request = new UpdateTaskRequest()
     request.setIdTask(taskId)
     request.setColor(value)
@@ -253,9 +261,9 @@ const useTaskContextContent = () => {
         getDatas()
       }
     })
-  }
+  }, [getDatas, taskService]);
 
-  const copyByReferenceSelectedTaskRefs = (idList: number) => {
+  const copyByReferenceSelectedTaskRefs = React.useCallback((idList: number) => {
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && idList === taskRef.idList) {
         let request = new CreateTaskRefRequest()
@@ -271,9 +279,9 @@ const useTaskContextContent = () => {
         })
       }
     })
-  }
+  }, [getDatas, taskRefService, taskRefs]);
 
-  const duplicateSelectedTaskRefs = (idList: number) => {
+  const duplicateSelectedTaskRefs = React.useCallback((idList: number) => {
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && idList === taskRef.idList
       ) {
@@ -281,7 +289,7 @@ const useTaskContextContent = () => {
         getDatas()
       }
     })
-  }
+  }, [createNewTask, getDatas, taskRefs]);
   return {
     tasks,
     taskRefs,

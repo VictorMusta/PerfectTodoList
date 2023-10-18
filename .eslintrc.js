@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ["src/protos/protostubs/*"],
     env: {
       browser: true,
       es2021: true,

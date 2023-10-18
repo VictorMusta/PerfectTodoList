@@ -27,8 +27,7 @@ export default function TaskCard(props: TaskCardProps) {
         <p>Title : {props.taskRef.task.title}</p>
 
         <input type="text" onKeyUp={(key) => {
-            console.log(key);
-            if (key.key == "Enter") {
+            if (key.key === "Enter") {
                 HandleColorChange(key.target)
             }
         }

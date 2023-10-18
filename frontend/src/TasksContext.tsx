@@ -6,8 +6,7 @@ import { CreateTaskRefRequest, DeleteTaskRefRequest, UpdateTaskRefRequest } from
 import { TaskRefServiceClient } from './protos/protostubs/TaskRefServiceClientPb';
 import { TaskServiceClient } from './protos/protostubs/TaskServiceClientPb';
 import { CreateTaskRequest, UpdateTaskRequest } from './protos/protostubs/Task_pb';
-import { log } from 'console';
-type createNewTaskType = (title: string) => void
+type createNewTaskType = (title: string, idList: number) => void
 type deleteSelectedTasksType = (idList: number) => void
 type selectTaskRefType = (taskRef: TaskRef) => void
 type moveSelectedTasksType = (idList: number) => void
@@ -87,75 +86,71 @@ const useTaskContextContent = () => {
   let taskRefService = new TaskRefServiceClient("http://localhost:10000")
 
   const getAllTasks = React.useCallback(() => {
+    setTasks(new Map())
     let empty = new google_protobuf_empty_pb.Empty()
+
     taskService.get_all_tasks(empty, {}, function (err: any, response: any) {
       if (err) {
         console.log(err.code);
         console.log(err.message);
       } else {
-        let taskMap = new Map()
-
         response.getTasksList().forEach((task: any) => {
           let tempTask: Task = { idTask: task.array[0], title: task.array[1], color: task.array[2], resolved: task.array[3] ? task.array[3] : false }
-          taskMap.set(tempTask.idTask, tempTask)
+          setTasks(new Map(tasks.set(tempTask.idTask, tempTask)))
         })
-
-        setTasks(new Map(taskMap))
-
 
       }
     });
-  }, [taskService])
+
+  }, [taskService, tasks])
   const getAllTaskRefs = React.useCallback(() => {
+    setTaskRefs(new Map())
     let empty = new google_protobuf_empty_pb.Empty()
     taskRefService.get_all_task_refs(empty, {}, function (err: any, response: any) {
       if (err) {
         console.log(err.code);
         console.log(err.message);
       } else {
-        let taskRefMap = new Map()
         response.getTaskRefsList().forEach((taskRef: any) => {
-
-
           let myTask = tasks.get(taskRef.array[1])
-
-
           if (myTask) {
-
-            let tempTaskRef: TaskRef = {
-              idTaskRef: taskRef.array[0], task: myTask, idList: taskRef.array[2], selected: false
+            if (taskRefs.get(taskRef.array[0])?.selected === true) {
+              let tempTaskRef: TaskRef = {
+                idTaskRef: taskRef.array[0], task: myTask, idList: taskRef.array[2], selected: true
+              }
+              setTaskRefs(new Map(taskRefs.set(tempTaskRef.idTaskRef, tempTaskRef)))
+            } else {
+              let tempTaskRef: TaskRef = {
+                idTaskRef: taskRef.array[0], task: myTask, idList: taskRef.array[2], selected: false
+              }
+              setTaskRefs(new Map(taskRefs.set(tempTaskRef.idTaskRef, tempTaskRef)))
             }
-
-            taskRefMap.set(tempTaskRef.idTaskRef, tempTaskRef)
           }
-
         })
-        setTaskRefs(new Map(taskRefMap))
       }
     });
 
-  }, [taskRefService, tasks]);
+  }, [taskRefService, taskRefs, tasks]);
 
   const getDatas = React.useCallback(() => {
     getAllTasks();
     getAllTaskRefs();
   }, [getAllTaskRefs, getAllTasks])
 
-  const createNewTaskRef = React.useCallback((idTask: string) => {
+  const createNewTaskRef = React.useCallback((idTask: string, idList: number) => {
     let request = new CreateTaskRefRequest()
     request.setIdTask(idTask)
-    request.setIdList(1)
+    request.setIdList(idList)
     taskRefService.create_task_ref(request, {}, function (err: any, response: any) {
       if (err) {
         console.log(err.code);
         console.log(err.message);
-      } else {
       }
     })
     getDatas()
   }, [getDatas, taskRefService]);
 
-  const createNewTask = React.useCallback((title: string) => {
+  const createNewTask = React.useCallback((title: string, idList: number) => {
     let request = new CreateTaskRequest()
     request.setTitle(title)
     taskService.create_task(request, {}, function (err: any, response: any) {
@@ -163,12 +158,9 @@ const useTaskContextContent = () => {
         console.log(err.code);
         console.log(err.message);
       }
-      else {
-        createNewTaskRef(response.getIdTask())
-      }
+      createNewTaskRef(response.getIdTask(), idList)
     });
-    getDatas()
-  }, [createNewTaskRef, getDatas, taskService])
+  }, [createNewTaskRef, taskService])
 
   const deleteSelectedTasks = React.useCallback((idList: number) => {
     let request = new DeleteTaskRefRequest()
@@ -179,16 +171,13 @@ const useTaskContextContent = () => {
           if (err) {
             console.log(err.code);
             console.log(err.message);
-          } else {
-
           }
-
         })
       }
     })
     getDatas()
-
   }, [getDatas, taskRefService, taskRefs])
+
 
   const deleteAllTasks = React.useCallback(() => {
     let empty = new google_protobuf_empty_pb.Empty()
@@ -285,11 +274,10 @@ const useTaskContextContent = () => {
     taskRefs.forEach(taskRef => {
       if (taskRef.selected === true && idList === taskRef.idList
       ) {
-        createNewTask(taskRef.task.title)
-        getDatas()
+        createNewTask(taskRef.task.title, idList)
       }
     })
-  }, [createNewTask, getDatas, taskRefs]);
+  }, [createNewTask, taskRefs]);
   return {
     tasks,
     taskRefs,

@@ -8,7 +8,7 @@ interface TodoListProps {
   listId: number
 }
 function TodoList(props: TodoListProps) {
-  let { taskRefs, getDatas
+  let { taskRefs, tasks, getDatas
   } = useContext(TaskContext)
 
   React.useEffect(() => {
@@ -17,6 +17,8 @@ function TodoList(props: TodoListProps) {
 
   const updateTaskCardList = React.useMemo(() => {
     console.log("update!");
+    console.log("taskRefs, tasks", taskRefs, tasks);
+
 
     let taskRefsTable: JSX.Element[] = []
 
@@ -24,12 +26,10 @@ function TodoList(props: TodoListProps) {
       if (props.listId === taskRef.idList) {
         taskRefsTable.push(<TaskCard key={taskRef.idTaskRef} taskRef={taskRef} />)
       }
-
-      // return <TaskCard key={taskRef.task.id} taskRef={taskRef} />
     }
     )
     return taskRefsTable;
-  }, [taskRefs, props.listId]);
+  }, [props.listId, taskRefs, tasks]);
 
   return (
     <div >

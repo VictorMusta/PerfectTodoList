@@ -8,26 +8,21 @@ const AddTaskForm = () => {
     const [titleField, setTitleField] = React.useState("")
 
     React.useEffect(() => {
-
         let NumberOfTaskRefsInFirstList = 0;
-
         for (let [, value] of taskRefs) {
             if (value.idList === 1) {
                 NumberOfTaskRefsInFirstList++
             }
         }
         setNumberOfTaskRefsInList(NumberOfTaskRefsInFirstList)
-
     }, [taskRefs]);
-
     const handleTitleFieldChange = (e: any) => {
         setTitleField(e.target.value)
     }
     function handleSubmit() {
-        createNewTask(titleField)
+        createNewTask(titleField, 1)
 
     }
-
     return (
         <div >
             <input type='text' placeholder='Name of your Task' onChange={handleTitleFieldChange} />

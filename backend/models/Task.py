@@ -17,6 +17,8 @@ class Task(Base):
     def as_dict(self) -> dict:
         try:
             res = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-            return res
-        except Exception as e:
+            # TODO: No print -> logger
+            print("res", res)
+            return res  # TODO: Ton try englobe trop d'instructions, seule la ligne 19 peut raise un truc, sors le reste
+        except Exception as e:  # TODO: Essaye de catch seulement les exceptions succeptibles d'être raise
             raise ValueError from e

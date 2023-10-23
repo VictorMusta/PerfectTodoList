@@ -15,6 +15,8 @@ import google.protobuf.empty_pb2
 empty = google.protobuf.empty_pb2.Empty()
 logger = logging.getLogger("backend")
 
+# TODO: Il manque beaucoup de types des paramètres et de retour
+# Pareil, mets des _ pour les unused
 
 class TaskRefService(TaskRef_stub_grpc.TaskRefServiceServicer):
     def __init__(self, *args, **kwargs) -> None:

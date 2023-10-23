@@ -2,6 +2,7 @@
   "name": "todolist",
   "version": "0.1.0",
   "private": true,
+
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@grpc/proto-loader": "^0.7.10",
@@ -30,12 +31,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -48,7 +43,19 @@
       "last 1 safari version"
     ]
   },
+  "main": ".eslintrc.js",
   "devDependencies": {
-    "eslint-plugin-react": "^7.33.2"
-  }
+    "eslint": "^8.52.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VictorMusta/PerfectTodoList.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VictorMusta/PerfectTodoList/issues"
+  },
+  "homepage": ".",
+  "description": ""
 }

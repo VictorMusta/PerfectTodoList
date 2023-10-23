@@ -1,62 +1,25 @@
-from flask import Flask, request
-from sqlalchemy import create_engine
-from functions.task_functions import TaskFunctions
+import logging
 
-engine = create_engine(
-    "postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres", echo=True
-)
+# create logger
+logger = logging.getLogger("simple_example")
+logger.setLevel(logging.DEBUG)
 
-app = Flask(__name__)
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
 
+# create formatter
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
-@app.route("/")
-def hello_world():
-    return "<p>This is my pure Javascript's Flask's api! I Hope you enjoy it.</p>"
+# add formatter to ch
+ch.setFormatter(formatter)
 
+# add ch to logger
+logger.addHandler(ch)
 
-# @app.errorhandler(400)
-# def bad_request(e):
-#     # defining function
-#     return "<p>BAD REQUEST TRY AGAIN NOOB</p>"
-
-
-# @app.errorhandler(404)
-# def not_found(e):
-#     # defining function
-#     return "<p>NOT FOUND</p>"
-
-
-@app.post("/task")
-def new_task():
-    return TaskFunctions.new_task(request.get_json())
-
-
-@app.get("/task")
-def get_task():
-    return TaskFunctions.get_task(request.get_json())
-
-
-@app.patch("/task")
-def update_task():
-    request_body = request.get_json()
-    return TaskFunctions.update_task(
-        request_body.get("id"),
-        title=request_body.get("title"),
-        color=request_body.get("color"),
-        resolved=request_body.get("resolved"),
-    )
-
-
-@app.delete("/task")
-def delete_task():
-    return TaskFunctions.delete_task(request.get_json())
-
-
-@app.get("/tasks")
-def get_all_task():
-    return TaskFunctions.get_all_task()
-
-
-@app.delete("/tasks")
-def delete_all_tasks():
-    return TaskFunctions.delete_all_tasks()
+# 'application' code
+logger.debug("debug message")
+logger.info("info message")
+logger.warning("warn message")
+logger.error("error message")
+logger.critical("critical message")

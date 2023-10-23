@@ -16,6 +16,7 @@ import google.protobuf.empty_pb2
 
 empty = google.protobuf.empty_pb2.Empty()
 
+# TODO: cf. task_ref_service
 
 class TaskService(task_stub_grpc.TaskServiceServicer):
     def __init__(self, *args, **kwargs) -> None:

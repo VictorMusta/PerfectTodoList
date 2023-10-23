@@ -1,4 +1,5 @@
 import uuid
+# TODO: Attention aux unused
 from sqlalchemy import UUID, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column

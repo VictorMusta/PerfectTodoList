@@ -12,6 +12,7 @@ def serve() -> None:
     add_TaskRefServiceServicer_to_server(TaskRefService(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
+    # TODO: Use a logger
     print("started!")
     server.wait_for_termination()
 

@@ -3,13 +3,23 @@ from models.Task import Task
 from sqlalchemy import create_engine, false
 from sqlalchemy.orm import Session
 
+# TODO: Le nom des fichiers / modules / classes est trop générique
+# Function est trop générique, d'ailleurs les fonctions ont l'air de gérer trop de choses
+# (requêtes bdd + requetes http)
 
+
+# TODO: create_engine est initialisé à la racine du script, c'est pas ouf
+# Fais une fonction ou une classe qui l'initialise, et comme ça tu peux le factoriser 
+# avec l'autre fichier de ce module
+# TODO: Utilise des variables d'environment pour toutes les parties "configurable" de cette 
+# connection string
 engine = create_engine(
     "postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres", echo=True
 )
 
 
 class TaskFunctions:
+    # TODO: Comme dit plus haut, sépare le http (abort(400)) de ton interaction avec la bdd
     @staticmethod
     def new_task(title: str) -> str:
         with Session(engine) as session:
@@ -43,6 +53,7 @@ class TaskFunctions:
                 return None
             return abort(404)
 
+    # TODO: Par exemple, cette fonction est bien, elle ne gère que la bdd
     @staticmethod
     def get_all_task() -> list:
         with Session(engine) as session:
@@ -54,7 +65,7 @@ class TaskFunctions:
             deleted_tasks = session.query(Task).where(Task.id_task == id_task).delete()
             if deleted_tasks > 0:
                 session.commit()
-                return
+                return  # TODO: Return None, autant être explicite
             return abort(404)
 
     @staticmethod

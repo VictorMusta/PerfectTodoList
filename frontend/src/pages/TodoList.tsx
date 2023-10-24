@@ -8,11 +8,11 @@ interface TodoListProps {
 	listId: number
 }
 function TodoList(props: TodoListProps) {
-	const { taskRefs, getDatas
+	const { taskRefs, getAllTasks
 	} = useContext(TaskContext);
 
 	React.useEffect(() => {
-		getDatas();
+		getAllTasks();
 	}, []);
 
 	const updateTaskCardList = React.useMemo(() => {

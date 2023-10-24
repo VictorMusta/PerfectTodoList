@@ -1,7 +1,8 @@
 from xml.dom import NotFoundErr
 from flask import abort
+from functions.task_functions import TaskFunctions
 from models.TaskRef import TaskRef
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, true
 from sqlalchemy.orm import Session
 
 
@@ -43,7 +44,7 @@ class TaskRefFunctions:
                         setattr(task_ref_to_update, key, value)
                     session.commit()
                 return None
-            return abort(404)
+        return abort(404)
 
     @staticmethod
     def get_all_task_refs() -> list:
@@ -61,10 +62,25 @@ class TaskRefFunctions:
                 .where(TaskRef.id_task_ref == id_task_ref)
                 .delete()
             )
-            if amount_of_deleted_task_refs > 0:
-                session.commit()
-                return amount_of_deleted_task_refs
-            return abort(404)
+            if amount_of_deleted_task_refs == 0:
+                return abort(404)
+            session.commit()
+        TaskRefFunctions.delete_all_tasks_without_task_ref()
+        return amount_of_deleted_task_refs
+
+    @staticmethod
+    def delete_all_tasks_without_task_ref() -> None:
+        tasks = TaskFunctions.get_all_task()
+        task_refs = TaskRefFunctions.get_all_task_refs()
+
+        for task in tasks:
+            found = False
+            for task_ref in task_refs:
+                if task.get("id_task") == task_ref.get("id_task"):
+                    found = True
+            if found is False:
+                TaskFunctions.delete_task(task.get("id_task"))
+            found = False
 
     @staticmethod
     def delete_all_task_refs() -> int:

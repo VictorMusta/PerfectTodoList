@@ -22,7 +22,7 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
         pass
 
     def create_task(self, request: CreateTaskRequest, _context) -> CreateTaskResponse:
-        id_task = TaskFunctions.new_task(request.title)
+        id_task = TaskFunctions.new_task(request.title, request.color)
         result = {"id_task": id_task}
         return CreateTaskResponse(**result)
 
@@ -44,7 +44,6 @@ class TaskService(task_stub_grpc.TaskServiceServicer):
 
     def get_all_tasks(self, request, _context) -> GetAllTasksResponse:
         tasks = TaskFunctions.get_all_task()
-        print(tasks)
         result = {"tasks": tasks}
         return GetAllTasksResponse(**result)
 

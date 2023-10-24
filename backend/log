@@ -1,0 +1,6 @@
+DEBUG - __main__ - debug message - 2023-10-24 14:53:04,371
+INFO - __main__ - info message - 2023-10-24 14:53:04,371
+WARNING - __main__ - warn message - 2023-10-24 14:53:04,371
+ERROR - __main__ - error message - 2023-10-24 14:53:04,371
+CRITICAL - __main__ - critical message - 2023-10-24 14:53:04,371
+INFO - __main__ - started! - 2023-10-24 14:53:04,377

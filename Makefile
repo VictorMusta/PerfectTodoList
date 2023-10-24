@@ -10,6 +10,7 @@ start:
 
 install:
 	cd frontend && npm install
+
 	
 protoc-gen: protoc-gen-back protoc-gen-front
 

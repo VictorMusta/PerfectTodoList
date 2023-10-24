@@ -37,6 +37,9 @@ export class CreateTaskRequest extends jspb.Message {
   getTitle(): string;
   setTitle(value: string): CreateTaskRequest;
 
+  getColor(): string;
+  setColor(value: string): CreateTaskRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateTaskRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateTaskRequest): CreateTaskRequest.AsObject;
@@ -48,6 +51,7 @@ export class CreateTaskRequest extends jspb.Message {
 export namespace CreateTaskRequest {
   export type AsObject = {
     title: string,
+    color: string,
   }
 }
 

@@ -17,7 +17,6 @@ class Task(Base):
     def as_dict(self) -> dict:
         try:
             res = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-            print("res", res)
             return res
         except Exception as e:
             raise ValueError from e

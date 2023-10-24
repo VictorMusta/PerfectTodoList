@@ -1,6 +1,6 @@
 from flask import abort
 from models.Task import Task
-from sqlalchemy import create_engine, false
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 
@@ -11,10 +11,10 @@ engine = create_engine(
 
 class TaskFunctions:
     @staticmethod
-    def new_task(title: str) -> str:
+    def new_task(title: str, color: str) -> str:
         with Session(engine) as session:
             try:
-                task_object = Task(title=title, color="red")
+                task_object = Task(title=title, color=color)
                 session.add(task_object)
                 session.commit()
                 return str(task_object.id_task)
@@ -52,15 +52,14 @@ class TaskFunctions:
     def delete_task(id_task: int) -> None:
         with Session(engine) as session:
             deleted_tasks = session.query(Task).where(Task.id_task == id_task).delete()
-            if deleted_tasks > 0:
-                session.commit()
-                return
-            return abort(404)
+            session.commit()
+            if deleted_tasks == 0:
+                return abort(404)
+            return None
 
     @staticmethod
     def delete_all_tasks() -> int:
         with Session(engine) as session:
             number_of_tasks_found = session.query(Task).delete()
-            if number_of_tasks_found > 0:
-                session.commit()
+            session.commit()
             return number_of_tasks_found

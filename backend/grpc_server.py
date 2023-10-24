@@ -10,7 +10,7 @@ from services.task_refs_service import TaskRefService
 def serve() -> None:
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
-    handler = logging.StreamHandler()
+    handler = logging.FileHandler("./log/")
     formatter = logging.Formatter(
         "%(levelname)s - %(name)s - %(message)s - %(asctime)s"
     )

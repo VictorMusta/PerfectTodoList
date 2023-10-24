@@ -28,6 +28,7 @@ service TaskService {
   //create task
   message CreateTaskRequest {
     string title = 1;
+    string color = 2;
   }
 
   message CreateTaskResponse {

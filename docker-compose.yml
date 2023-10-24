@@ -2,7 +2,6 @@
 version: '3.1'
 
 services:
-
   db:
     container_name: postgres
     image: postgres
@@ -10,8 +9,6 @@ services:
     environment:
       POSTGRES_USER: taskAdmin
       POSTGRES_PASSWORD: mdppostgres
-    ports:
-      - 5432:5432
   adminer:
     image: adminer
     restart: always
@@ -26,18 +23,20 @@ services:
   frontend:
     container_name: frontend
     image: node:18-alpine
-    build:
-      context: ./frontend
     volumes:
       - ./frontend:/frontend
     ports:
       - "3000:3000"
+    working_dir: /frontend
     command: [ "npm", "start" ]
   backend:
     container_name: backend
     build:
       context: .
-      dockerfile: "./backend/Dockerfile"
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/backend
+    command: [ "bash", "docker-entry-point.sh" ]
     ports:
       - "50051:50051"
     depends_on:

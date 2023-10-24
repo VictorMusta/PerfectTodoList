@@ -20,7 +20,7 @@ const AddTaskForm = () => {
 		setTitleField(e.target.value);
 	};
 	function handleSubmit() {
-		createNewTask(titleField, 1);
+		createNewTask(titleField, "yellow", 1);
 
 	}
 	return (

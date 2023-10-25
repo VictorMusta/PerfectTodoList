@@ -1,10 +1,9 @@
 .App {
-  text-align: center;
-  background: linear-gradient(to top, #e8d530, #cbc10c, #3b4008);
-  margin: 1vh;
-  padding: 1vh;
 }
 
+.AddTaskForm {
+  margin: 20px;
+}
 input[type="checkbox"] {
   height: 2.5rem;
   width: 2.5rem;
@@ -14,18 +13,16 @@ input[type="checkbox"] {
   height: 5rem;
 }
 .Logo-header{
-  margin: 1rem;
   display: flex;
-  color: #000;
+  color: #eae2b7;
 }
+
 .Task-Card {
-  padding: 0.5rem;
   border-style: double;
-  border-color: #b9a80f;
-  background-color: #f3e037d1;
   border-radius: 1rem;
-  height: 15rem;
-  width: 15rem;
+  height: 10rem;
+  max-width: 20rem;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,31 +31,33 @@ input[type="checkbox"] {
   padding: 1rem;
   gap: 1rem;
   margin: 1rem;
-  border-color: #1b2222;
   border-radius: 1rem;
   border-style: double;
   display: flex;
-  background-color: #e6e3d5;
-  height: 16.5rem;
+  flex-wrap: wrap;
+  background-color: #eae2b7;
 }
 
-
 .Task-button {
-  background-color: #fff000;
-  border-radius: 12px;
-  color: #000;
+  display: inline-block;
+  outline: 0;
+  border: none;
   cursor: pointer;
-  font-weight: bold;
-  padding: 10px 15px;
-  transition: 200ms;
-  font-size: 16px;
-
+  padding: 0 24px;
+  border-radius: 50px;
+  min-width: 5rem;
+  height: 3rem;
+  font-size: 18px;
+  background-color: #fd0;
+  font-weight: 500;
+  color: #222;
+  margin: 0.2rem;
 }
           
 .Task-button:not(:disabled):hover,
 .Task-button:not(:disabled):focus {
   outline: 0;
-  background: #f4e603;
+  background-color: rgb(221, 195, 27);
   box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
 
@@ -67,24 +66,28 @@ input[type="checkbox"] {
   -webkit-filter: saturate(0.2) opacity(0.5);
   cursor: not-allowed;
 }
+
 .Tasks-button-div {
-  background-color: #d8be0f;
+  background-color: #003049;
+  color: #eae2b7;
+  border-radius: 50px;
   align-items: center;
   justify-content: center;
   min-height: 5rem;
   display: flex;
 
 }
-
+.ListOfTaskList {
+  display: flex;
+  justify-content: center;
+}
+.TaskList {
+  width: 100vh;
+}
 .App-header {
-  background-color: #ae9f3d;
   max-height: 10rem;
   display: flex;
-  align-items: center;
+  justify-content: center;
   font-size: calc(1rem);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}

@@ -4,24 +4,29 @@ import logo from "./assets/logo2.png";
 import { TodoList } from "./pages/TodoList";
 import { TaskProvider } from "./TasksContext";
 import { AddTaskForm } from "./components/addTaskForm/addTaskForm";
-function App() {
 
+function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
-				<div className="Logo-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1>My ReactJS TodoList!</h1>
-				</div>
-			</header>
-			<TaskProvider>
-				<AddTaskForm />
-				<TodoList listId={1} />
-				<TodoList listId={2} />
-			</TaskProvider>
-		</div>
+			<div className="TodoList">
+				<header className="App-header">
+					<div className="Logo-header">
+						<img src={logo} className="App-logo" alt="logo" />
+						<h1>My ReactJS TodoList!</h1>
+					</div>
+				</header>
+				<TaskProvider>
+					<AddTaskForm />
+					<div className="ListOfTaskList">
+						<TodoList listId={1} />
+						<TodoList listId={2} />
+					</div>
+				</TaskProvider>
+			</div>
+		</div >
 	);
 }
+
 
 export default App;

@@ -28,8 +28,9 @@ function TodoList(props: TodoListProps) {
 	}, [props.listId, taskRefs]);
 
 	return (
-		<div >
+		<div className="TaskList">
 			<div className='Tasks-button-div'>
+				<h3>Liste n°{props.listId}</h3>
 				<TaskButtons idList={props.listId} />
 			</div >
 			<div className="Tasks-cards-div">

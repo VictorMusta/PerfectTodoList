@@ -8,27 +8,22 @@ from services.task_refs_service import TaskRefService
 
 
 def serve() -> None:
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger("backend")
     logger.setLevel(logging.DEBUG)
-    handler = logging.FileHandler("./log/")
+    handler = logging.FileHandler("./logs")
     formatter = logging.Formatter(
         "%(levelname)s - %(name)s - %(message)s - %(asctime)s"
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-    logger.debug("debug message")
-    logger.info("info message")
-    logger.warning("warn message")
-    logger.error("error message")
-    logger.critical("critical message")
-
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     add_TaskServiceServicer_to_server(TaskService(), server)
     add_TaskRefServiceServicer_to_server(TaskRefService(), server)
     server.add_insecure_port("[::]:50051")
+    logger.info("starting backend....")
     server.start()
-    logger.info("started!")
+    logger.info("backend started!")
     server.wait_for_termination()
 
 

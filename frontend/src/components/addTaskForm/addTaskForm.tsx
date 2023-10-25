@@ -16,21 +16,27 @@ const AddTaskForm = () => {
 		}
 		setNumberOfTaskRefsInList(NumberOfTaskRefsInFirstList);
 	}, [taskRefs]);
+
 	const handleTitleFieldChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
 		setTitleField(e.target.value);
 	};
+
 	function handleSubmit() {
-		createNewTask(titleField, "yellow", 1);
+		createNewTask(titleField, "#d62828", 1);
 
 	}
+
 	return (
-		<div >
-			<input type='text' placeholder='Name of your Task' onChange={handleTitleFieldChange} />
-			<button className='Task-button' disabled={titleField === "" || numberOfTaskRefsInFirstList >= 6} onClick={handleSubmit}>ADD</button>
-			<button className='Task-button' disabled={taskRefs.size === 0} onClick={deleteAllTasks}>CLEAR ALL TASKS</button>
-		</div >
+		<>
+			<div className="AddTaskForm">
+				<input type='text' placeholder='Name of your Task' onChange={handleTitleFieldChange} />
+				<button className='Task-button' disabled={titleField === "" || numberOfTaskRefsInFirstList >= 6} onClick={handleSubmit}>ADD</button>
+				<button className='Task-button' disabled={taskRefs.size === 0} onClick={deleteAllTasks}>DELETE ALL TASKS</button>
+			</div >
+		</>
 	);
 };
+
 export {
 	AddTaskForm
 };

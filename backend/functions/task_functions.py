@@ -8,11 +8,8 @@ from sqlalchemy.orm import Session
 # (requêtes bdd + requetes http)
 
 
-# TODO: create_engine est initialisé à la racine du script, c'est pas ouf
-# Fais une fonction ou une classe qui l'initialise, et comme ça tu peux le factoriser 
-# avec l'autre fichier de ce module
-# TODO: Utilise des variables d'environment pour toutes les parties "configurable" de cette 
-# connection string
+# TODO: create_engine est initialisé à la racine du script, c'est pas ouf Fais une fonction ou une classe qui l'initialise, et comme ça tu peux le factoriser avec l'autre fichier de ce module
+# TODO: Utilise des variables d'environment pour toutes les parties "configurable" de cette connection string
 engine = create_engine("postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres")
 
 

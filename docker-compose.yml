@@ -9,6 +9,8 @@ services:
     environment:
       POSTGRES_USER: taskAdmin
       POSTGRES_PASSWORD: mdppostgres
+    ports:
+      - 5432:5432
   adminer:
     image: adminer
     restart: always

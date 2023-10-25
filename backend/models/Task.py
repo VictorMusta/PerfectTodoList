@@ -3,6 +3,9 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from models.Base import Base
 import uuid
+import logging
+
+logger = logging.getLogger("backend")
 
 
 class Task(Base):
@@ -15,10 +18,6 @@ class Task(Base):
     resolved: Mapped[bool] = mapped_column(default=False)
 
     def as_dict(self) -> dict:
-        try:
-            res = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-            # TODO: No print -> logger
-            print("res", res)
-            return res  # TODO: Ton try englobe trop d'instructions, seule la ligne 19 peut raise un truc, sors le reste
-        except Exception as e:  # TODO: Essaye de catch seulement les exceptions succeptibles d'être raise
-            raise ValueError from e
+        res = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        logger.debug("Task.as_dict() called", res)
+        return res

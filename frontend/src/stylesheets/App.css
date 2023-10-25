@@ -8,7 +8,7 @@ input[type="checkbox"] {
   height: 2.5rem;
   width: 2.5rem;
 }
- 
+
 .App-logo {
   height: 5rem;
 }
@@ -45,15 +45,14 @@ input[type="checkbox"] {
   cursor: pointer;
   padding: 0 24px;
   border-radius: 50px;
-  min-width: 5rem;
-  height: 3rem;
-  font-size: 18px;
+  height: 2rem;
+  font-size: 15px;
   background-color: #fd0;
   font-weight: 500;
   color: #222;
   margin: 0.2rem;
 }
-          
+
 .Task-button:not(:disabled):hover,
 .Task-button:not(:disabled):focus {
   outline: 0;
@@ -82,7 +81,7 @@ input[type="checkbox"] {
   justify-content: center;
 }
 .TaskList {
-  width: 100vh;
+  width: 45%;
 }
 .App-header {
   max-height: 10rem;

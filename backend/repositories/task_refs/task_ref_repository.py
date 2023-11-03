@@ -1,6 +1,6 @@
 from xml.dom import NotFoundErr
 from flask import abort
-from functions.task_functions import TaskFunctions
+from repositories.tasks.task_repository import TaskRepository
 from models.TaskRef import TaskRef
 from sqlalchemy import create_engine, true
 from sqlalchemy.orm import Session
@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 engine = create_engine("postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres")
 
 
-class TaskRefFunctions:
+class TaskRefRepository:
     @staticmethod
     def new_task_ref(id_task: str, id_list: int) -> None:
         with Session(engine) as session:
@@ -63,13 +63,13 @@ class TaskRefFunctions:
             if amount_of_deleted_task_refs == 0:
                 return abort(404)
             session.commit()
-        TaskRefFunctions.delete_all_tasks_without_task_ref()
+        TaskRefRepository.delete_all_tasks_without_task_ref()
         return amount_of_deleted_task_refs
 
     @staticmethod
     def delete_all_tasks_without_task_ref() -> None:
-        tasks = TaskFunctions.get_all_task()
-        task_refs = TaskRefFunctions.get_all_task_refs()
+        tasks = TaskRepository.get_all_task()
+        task_refs = TaskRefRepository.get_all_task_refs()
 
         for task in tasks:
             found = False
@@ -77,7 +77,7 @@ class TaskRefFunctions:
                 if task.get("id_task") == task_ref.get("id_task"):
                     found = True
             if found is False:
-                TaskFunctions.delete_task(task.get("id_task"))
+                TaskRepository.delete_task(task.get("id_task"))
             found = False
 
     @staticmethod

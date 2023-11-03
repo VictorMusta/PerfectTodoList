@@ -4,20 +4,23 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 
+
+# TODO: create_engine est initialisé à la racine du script, c'est pas ouf Fais une fonction ou une classe qui
+#  l'initialise, et comme ça tu peux le factoriser avec l'autre fichier de ce module
+# TODO: Utilise des variables d'environment pour toutes les parties "configurable" de cette connection string
 engine = create_engine("postgresql+psycopg2://taskAdmin:mdppostgres@postgres/postgres")
 
 
-class TaskFunctions:
+class TaskRepository:
+    # TODO: Comme dit plus haut, sépare le http (abort(400)) de ton interaction avec la bdd
     @staticmethod
     def new_task(title: str, color: str) -> str:
         with Session(engine) as session:
-            try:
-                task_object = Task(title=title, color=color)
-                session.add(task_object)
-                session.commit()
-                return str(task_object.id_task)
-            except ValueError as e:
-                abort(400, e)
+            task_object = Task(title=title, color=color)
+            session.add(task_object)
+            session.commit()
+        return str(task_object.id_task)
+
 
     @staticmethod
     def get_task(id_task: str) -> Task:
@@ -39,8 +42,8 @@ class TaskFunctions:
                         setattr(task_to_update, key, value)
                     session.commit()
                 return None
-            return abort(404)
 
+    # TODO: Par exemple, cette fonction est bien, elle ne gère que la bdd
     @staticmethod
     def get_all_task() -> list:
         with Session(engine) as session:
@@ -49,10 +52,8 @@ class TaskFunctions:
     @staticmethod
     def delete_task(id_task: int) -> None:
         with Session(engine) as session:
-            deleted_tasks = session.query(Task).where(Task.id_task == id_task).delete()
+            session.query(Task).where(Task.id_task == id_task).delete()
             session.commit()
-            if deleted_tasks == 0:
-                return abort(404)
             return None
 
     @staticmethod
